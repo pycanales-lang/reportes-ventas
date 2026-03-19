@@ -3,174 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Portal de Reportes | Tigo Business</title>
+    <title>Portal de Reportes | Tigo</title>
     <style>
         :root {
             --tigo-blue: #0033a0;
-            --tigo-accent: #00dce6;
-            --bg-gray: #f4f7fa;
+            --tigo-light: #0050ef;
+            --accent: #00dce6;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-gray);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: #f0f4f8;
             margin: 0;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             min-height: 100vh;
         }
 
         .login-card {
             background: white;
             width: 90%;
-            max-width: 420px;
+            max-width: 400px;
             padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 51, 160, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
 
-        .logo-container {
-            margin-bottom: 25px;
-        }
-
-        .tigo-logo {
-            font-size: 32px;
+        .logo {
+            font-size: 35px;
             font-weight: 900;
             color: var(--tigo-blue);
+            margin-bottom: 5px;
             letter-spacing: -1.5px;
         }
 
-        .tigo-logo span { color: var(--tigo-accent); }
+        .logo span { color: var(--tigo-accent); }
 
         .subtitle {
-            color: #5a6b87;
-            font-size: 15px;
-            margin-bottom: 30px;
+            color: #718096;
+            font-size: 14px;
+            margin-bottom: 35px;
         }
 
-        .input-group {
+        .form-group {
             text-align: left;
             margin-bottom: 20px;
         }
 
         label {
             display: block;
-            font-size: 12px;
-            font-weight: 700;
+            font-size: 11px;
+            font-weight: 800;
             color: var(--tigo-blue);
             margin-bottom: 8px;
-            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         input, select {
             width: 100%;
-            padding: 14px;
-            border: 2px solid #e1e8f0;
+            padding: 15px;
+            border: 2px solid #edf2f7;
             border-radius: 12px;
-            font-size: 16px; /* Evita zoom automático en iPhone */
-            transition: all 0.3s ease;
+            font-size: 16px; /* Evita zoom molesto en móviles */
+            box-sizing: border-box;
+            transition: all 0.2s;
+        }
+
+        input:focus {
+            border-color: var(--tigo-blue);
+            background: #fdfdff;
             outline: none;
         }
 
-        input:focus { border-color: var(--tigo-blue); background: #fdfdff; }
-
-        /* Estilo especial para la lista de sugerencias */
         #coordinador {
-            margin-top: 5px;
+            margin-top: -2px;
             border-top: none;
             border-radius: 0 0 12px 12px;
             background: #f8fafc;
+            height: 150px;
         }
 
         #buscador {
-            border-radius: 12px 12px 0 0;
-            background: #fff;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom: 1px dashed #cbd5e0;
         }
 
-        .btn-primary {
+        button {
             width: 100%;
-            background-color: var(--tigo-blue);
+            background: var(--tigo-blue);
             color: white;
             padding: 16px;
             border: none;
             border-radius: 12px;
             font-size: 16px;
-            font-weight: 700;
+            font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 51, 160, 0.2);
-            transition: transform 0.2s;
+            margin-top: 10px;
+            box-shadow: 0 4px 6px rgba(0, 51, 160, 0.2);
         }
 
-        .btn-primary:active { transform: scale(0.98); }
+        button:active { transform: translateY(2px); }
 
-        .footer {
-            margin-top: 25px;
-            font-size: 11px;
-            color: #adb5bd;
+        .footer-tag {
+            margin-top: 30px;
+            font-size: 10px;
+            color: #a0aec0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
 <div class="login-card">
-    <div class="logo-container">
-        <div class="tigo-logo">Tigo<span>Business</span></div>
-        <div class="subtitle">Portal de Reportes Diarios</div>
+    <div class="logo">Tigo<span>Business</span></div>
+    <div class="subtitle">Dashboard de Gestión de Ventas</div>
+
+    <div class="form-group">
+        <label>Buscar Mi Nombre</label>
+        <input type="text" id="buscador" placeholder="Escriba aquí..." onkeyup="filtrar()">
+        <select id="coordinador" size="5"></select>
     </div>
 
-    <div class="input-group">
-        <label>Seleccione su Nombre</label>
-        <input type="text" id="buscador" placeholder="🔎 Buscar..." onkeyup="filtrar()">
-        <select id="coordinador" size="4"></select>
+    <div class="form-group">
+        <label>Pin de Acceso</label>
+        <input type="password" id="pass" placeholder="Clave de 8 dígitos">
     </div>
 
-    <div class="input-group">
-        <label>Contraseña Asignada</label>
-        <input type="password" id="pass" placeholder="••••••••">
-    </div>
+    <button onclick="acceder()">ENTRAR AL REPORTE</button>
 
-    <button class="btn-primary" onclick="acceder()">VER REPORTE DIARIO</button>
-
-    <div class="footer">
-        © 2026 Tigo Paraguay<br>
-        Acceso restringido para personal autorizado
-    </div>
+    <div class="footer-tag">© 2026 Sistema de Notificaciones</div>
 </div>
 
 <script>
+    // Tu objeto de coordinadores se mantiene igual aquí
     const coordinadores = {
         "vera-portillo-angel-javier": "VERA PORTILLO, ANGEL JAVIER",
         "arguello-maria-romina": "ARGUELLO, MARIA ROMINA",
-        // ... (agrega aquí el resto de tus coordinadores como los tenías)
-        "leguizamon-cuevas-diego-jose": "LEGUIZAMON CUEVAS, DIEGO JOSE"
+        "romero-duarte-melissa-aylen": "ROMERO DUARTE, MELISSA AYLEN",
+        // ... añadir el resto aquí
     };
 
-    const select = document.getElementById('coordinador');
-
     function cargarLista(filtro = "") {
+        const select = document.getElementById('coordinador');
         select.innerHTML = "";
-        const keys = Object.keys(coordinadores);
-        for (const slug of keys) {
-            const nombre = coordinadores[slug];
+        Object.entries(coordinadores).forEach(([slug, nombre]) => {
             if (nombre.toLowerCase().includes(filtro.toLowerCase())) {
                 const opt = document.createElement('option');
                 opt.value = slug;
-                opt.innerHTML = nombre;
-                opt.style.padding = "10px";
+                opt.textContent = nombre;
                 select.appendChild(opt);
             }
-        }
+        });
     }
 
-    function filtrar() { cargarLista(document.getElementById('buscador').value); }
+    function filtrar() {
+        cargarLista(document.getElementById('buscador').value);
+    }
 
     function acceder() {
-        const user = select.value;
+        const user = document.getElementById('coordinador').value;
         const pass = document.getElementById('pass').value;
-        if (!user || !pass) { alert("Por favor, complete sus credenciales."); return; }
-        window.location.href = `docs/${user}-${pass}.html`;
+        if(!user || !pass) { alert("Seleccione su nombre e ingrese su clave"); return; }
+        // Los archivos están dentro de la carpeta docs
+        window.location.href = `./${user}-${pass}.html`;
     }
 
     cargarLista();
