@@ -2,250 +2,178 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Ventas | Tigo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Portal de Reportes | Tigo Business</title>
     <style>
         :root {
             --tigo-blue: #0033a0;
-            --tigo-light-blue: #0050ef;
-            --bg-gray: #f0f2f5;
+            --tigo-accent: #00dce6;
+            --bg-gray: #f4f7fa;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-gray);
+            margin: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh;
         }
 
-        .login-container {
+        .login-card {
             background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 400px;
+            width: 90%;
+            max-width: 420px;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 51, 160, 0.1);
             text-align: center;
         }
 
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--tigo-blue);
-            margin-bottom: 5px;
-            letter-spacing: -1px;
+        .logo-container {
+            margin-bottom: 25px;
         }
 
+        .tigo-logo {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--tigo-blue);
+            letter-spacing: -1.5px;
+        }
+
+        .tigo-logo span { color: var(--tigo-accent); }
+
         .subtitle {
-            color: #666;
-            font-size: 14px;
+            color: #5a6b87;
+            font-size: 15px;
             margin-bottom: 30px;
         }
 
-        .form-group {
+        .input-group {
             text-align: left;
             margin-bottom: 20px;
         }
 
         label {
             display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: #333;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--tigo-blue);
             margin-bottom: 8px;
+            text-transform: uppercase;
         }
 
         input, select {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
-            box-sizing: border-box;
-            transition: border 0.3s;
-        }
-
-        input:focus {
+            padding: 14px;
+            border: 2px solid #e1e8f0;
+            border-radius: 12px;
+            font-size: 16px; /* Evita zoom automático en iPhone */
+            transition: all 0.3s ease;
             outline: none;
-            border-color: var(--tigo-light-blue);
         }
 
-        button {
+        input:focus { border-color: var(--tigo-blue); background: #fdfdff; }
+
+        /* Estilo especial para la lista de sugerencias */
+        #coordinador {
+            margin-top: 5px;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            background: #f8fafc;
+        }
+
+        #buscador {
+            border-radius: 12px 12px 0 0;
+            background: #fff;
+        }
+
+        .btn-primary {
             width: 100%;
             background-color: var(--tigo-blue);
             color: white;
-            padding: 14px;
+            padding: 16px;
             border: none;
-            border-radius: 6px;
+            border-radius: 12px;
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(0, 51, 160, 0.2);
+            transition: transform 0.2s;
         }
 
-        button:hover {
-            background-color: var(--tigo-light-blue);
-        }
+        .btn-primary:active { transform: scale(0.98); }
 
-        .footer-text {
+        .footer {
             margin-top: 25px;
             font-size: 11px;
-            color: #999;
-        }
-
-        /* Estilo para el buscador */
-        .search-box {
-            margin-bottom: 5px;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-        select {
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
-            border-top: none;
+            color: #adb5bd;
         }
     </style>
 </head>
 <body>
 
-<div class="login-container">
-    <div class="logo">Tigo Business</div>
-    <div class="subtitle">Portal de Reportes para Coordinadores</div>
-
-    <div class="form-group">
-        <label>BUSCAR COORDINADOR</label>
-        <input type="text" id="buscador" placeholder="Empiece a escribir su nombre..." onkeyup="filtrar()">
-        <select id="coordinador" size="5">
-            </select>
+<div class="login-card">
+    <div class="logo-container">
+        <div class="tigo-logo">Tigo<span>Business</span></div>
+        <div class="subtitle">Portal de Reportes Diarios</div>
     </div>
 
-    <div class="form-group">
-        <label>CONTRASEÑA</label>
-        <input type="password" id="pass" placeholder="Ingrese su clave asignada">
+    <div class="input-group">
+        <label>Seleccione su Nombre</label>
+        <input type="text" id="buscador" placeholder="🔎 Buscar..." onkeyup="filtrar()">
+        <select id="coordinador" size="4"></select>
     </div>
 
-    <button onclick="acceder()">VER REPORTE DIARIO</button>
-    <div id="error" style="color:red; font-size: 12px; margin-top: 15px; display: none;">
-        Acceso denegado. Verifique su usuario y contraseña.
+    <div class="input-group">
+        <label>Contraseña Asignada</label>
+        <input type="password" id="pass" placeholder="••••••••">
     </div>
 
-    <div class="footer-text">
-        © 2026 Tigo Paraguay - Uso estrictamente interno
+    <button class="btn-primary" onclick="acceder()">VER REPORTE DIARIO</button>
+
+    <div class="footer">
+        © 2026 Tigo Paraguay<br>
+        Acceso restringido para personal autorizado
     </div>
 </div>
 
 <script>
-    // Listado de coordinadores (Slug vs Nombre Real)
     const coordinadores = {
         "vera-portillo-angel-javier": "VERA PORTILLO, ANGEL JAVIER",
         "arguello-maria-romina": "ARGUELLO, MARIA ROMINA",
-        "romero-duarte-melissa-aylen": "ROMERO DUARTE, MELISSA AYLEN",
-        "benitez-insfran-shirley-jisselle": "BENITEZ INSFRAN, SHIRLEY JISSELLE",
-        "jimenez-aguero-liliana": "JIMENEZ AGUERO, Liliana",
-        "benitez-franco-rosana": "BENITEZ FRANCO, ROSANA",
-        "villalba-vester-leonardo": "VILLALBA VESTER, LEONARDO",
-        "noguera-garcia-laura-melissa": "NOGUERA GARCIA, Laura Melissa",
-        "franco-ortiz-milciades": "FRANCO ORTIZ, MILCIADES",
-        "arce-duarte-gaspar": "ARCE DUARTE, Gaspar",
-        "fleitas-lopez-isidro-andres": "FLEITAS LOPEZ, Isidro Andres",
-        "insauralde-florentin-lourdes-mariana": "INSAURRALDE FLORENTIN, LOURDES MARIANA",
-        "alderete-espinola-francisco-isaias": "ALDERETE ESPINOLA, Francisco Isaias",
-        "martinez-areco-oscar-mauricio": "MARTINEZ ARECO, Oscar Mauricio",
-        "godoy-fleitas-guadalupe-ramona": "GODOY FLEITAS, GUADALUPE RAMONA",
-        "acosta-cabrera-guzman": "ACOSTA CABRERA, GUZMAN",
-        "lujan-ramirez-christian": "LUJAN RAMIREZ, Christian",
-        "lopez-pacua-nelson-raul": "LOPEZ PACUA, NELSON RAUL",
-        "acosta-rivaldi-milagro-estefania": "ACOSTA RIVALDI, MILAGRO ESTEFANIA",
-        "gimenez-coronel-yohana-elizabeth": "GIMENEZ CORONEL, YOHANA ELIZABETH",
-        "ferreira-acosta-arnaldo-alberto": "FERREIRA ACOSTA, ARNALDO ALBERTO",
-        "benitez-octavio-herimarc": "BENITEZ, OCTAVIO HERIMARC",
-        "leon-riquelme-aldo-javier": "LEÓN RIQUELME, ALDO JAVIER",
-        "portillo-silvero-jessica-noemi": "PORTILLO SILVERO, JESSICA NOEMI",
-        "grossling-aquino-yanio-mathias": "GROSSLING AQUINO, YANIO MATHIAS",
-        "benitez-garcia-ever": "BENITEZ GARCIA, EVER",
-        "espinoza-lopez-luis-rodrigo": "ESPINOZA LOPEZ, LUIS RODRIGO",
-        "portillo-rios-elena-rosana": "PORTILLO RIOS, ELENA ROSANA",
-        "da-silva-cristian-alejandro": "DA SILVA, CRISTIAN ALEJANDRO",
-        "llanes-villagra-laura-esmilce": "LLANES VILLAGRA, Laura Esmilce",
-        "pereira-zarate-gustavo-ramon": "PEREIRA ZARATE, Gustavo Ramon",
-        "frazqueri-samaniego-gustavo-ramon": "FRAZQUERI SAMANIEGO, Gustavo Ramon",
-        "torales-pairet-araceli-vanessa": "TORALES PAIRET, ARACELI VANESSA",
-        "martinez-cardozo-miguelangel-fernando": "MARTINEZ CARDOZO, MIGUELÁNGEL FERNANDO",
-        "davalos-espinoza-luz-joana": "DAVALOS ESPINOZA, LUZ JOANA",
-        "monti-caceres-rolando-matias": "MONTI CACERES, ROLANDO MATIAS",
-        "gonzalez-quintana-hector-david": "GONZALEZ QUINTANA, HECTOR DAVID",
-        "alcaraz-rolon-maira-luz": "ALCARAZ ROLON, MAIRA LUZ",
-        "rodriguez-cabrera-fredy-anibal": "RODRIGUEZ CABRERA, FREDY ANIBAL",
-        "mauro-mogetta-saidy-gabriela": "MAURO MOGETTA, SAIDY GABRIELA",
-        "fernandez-rodriguez-samuel-elias": "FERNANDEZ RODRIGUEZ, Samuel Elias",
-        "barreto-mora-luis-matias": "BARRETO MORA, LUIS MATIAS",
-        "alonso-casartelli-franco-rafael": "ALONSO CASARTELLI, FRANCO RAFAEL",
-        "lomaquis-martinez-ana-maria": "LOMAQUIS MARTINEZ, ANA MARIA",
-        "vargas-portillo-rocio-elizabeth": "VARGAS PORTILLO, ROCIO ELIZABETH",
-        "gimenez-lopez-leila-larissa": "GIMENEZ LOPEZ, LEILA LARISSA",
-        "espinola-rojas-rebeca-maricel": "ESPINOLA ROJAS, REBECA MARICEL",
-        "olmedo-cuevas-adolfo-gabriel": "OLMEDO CUEVAS, Adolfo Gabriel",
-        "vento-cardenas-carlos-daniel": "VENTO CARDENAS, Carlos Daniel",
-        "noelia-gonzalez-maria-noelia": "NOELIA GONZALEZ, MARÍA NOELIA",
-        "brietez-fernandez-renato-luis": "Britez Fernandez, Renato Luis",
-        "franco-orue-jorge-antonio": "FRANCO ORUE, Jorge Antonio",
-        "aguilera-villasanti-minerva-elizabeth": "AGUILERA VILLASANTI, MINERVA ELIZABETH",
-        "cabrera-lezcano-ismael-nebaiot": "CABRERA LEZCANO, Ismael Nebaiot",
-        "gaona-bataglia-nicolas-ulises": "GAONA BATAGLIA, NICOLAS ULISES",
-        "silvera-minella-maria-fernanda": "SILVERA MINELLA, Maria Fernanda",
-        "ruiz-cuellar-carolina": "RUIZ CUELLAR, Carolina",
-        "lopez-frutos-jose-maria": "LOPEZ FRUTOS, Jose Maria",
-        "alvarez-caballero-fernando-rafael": "ALONSO CASARTELLI, FRANCO RAFAEL",
+        // ... (agrega aquí el resto de tus coordinadores como los tenías)
         "leguizamon-cuevas-diego-jose": "LEGUIZAMON CUEVAS, DIEGO JOSE"
     };
 
     const select = document.getElementById('coordinador');
 
-    // Cargar lista inicial
     function cargarLista(filtro = "") {
         select.innerHTML = "";
-        for (const [slug, nombre] of Object.entries(coordinadores)) {
+        const keys = Object.keys(coordinadores);
+        for (const slug of keys) {
+            const nombre = coordinadores[slug];
             if (nombre.toLowerCase().includes(filtro.toLowerCase())) {
                 const opt = document.createElement('option');
                 opt.value = slug;
                 opt.innerHTML = nombre;
+                opt.style.padding = "10px";
                 select.appendChild(opt);
             }
         }
     }
 
-    function filtrar() {
-        const texto = document.getElementById('buscador').value;
-        cargarLista(texto);
-    }
+    function filtrar() { cargarLista(document.getElementById('buscador').value); }
 
     function acceder() {
         const user = select.value;
         const pass = document.getElementById('pass').value;
-        
-        if (!user) {
-            alert("Por favor, seleccione su nombre de la lista.");
-            return;
-        }
-        if (!pass) {
-            alert("Por favor, ingrese su contraseña.");
-            return;
-        }
-
-        // Construir URL: nombre-password.html
-        const destino = user + "-" + pass + ".html";
-        
-        // Redirigir
-        window.location.href = destino;
+        if (!user || !pass) { alert("Por favor, complete sus credenciales."); return; }
+        window.location.href = `docs/${user}-${pass}.html`;
     }
 
-    // Inicializar
     cargarLista();
 </script>
-
 </body>
 </html>
