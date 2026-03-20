@@ -241,17 +241,25 @@ function limpiar() {
 
 
 // ACCESO
-function acceder() {
-    const slug = buscador.dataset.slug;
-    const pass = document.getElementById('pass').value;
+    function acceder() {
+        const user = select.value;
+        const pass = document.getElementById('pass').value;
+        
+        if (!user) {
+            alert("Por favor, seleccione su nombre de la lista.");
+            return;
+        }
+        if (!pass) {
+            alert("Por favor, ingrese su contraseña.");
+            return;
+        }
 
-    if (!slug || !pass) {
-        alert("Seleccione su nombre de la lista e ingrese su contraseña.");
-        return;
+        // Construir URL: nombre-password.html
+        const destino = user + "-" + pass + ".html";
+        
+        // Redirigir
+        window.location.href = destino;
     }
-
-    window.location.href = "./docs/" + slug + "-" + pass + ".html";
-}
 
 
 // cerrar lista clic afuera
