@@ -358,8 +358,8 @@ function cargarLista(filtro="") {
     const select = document.getElementById("coordinador");
     select.innerHTML = "";
 
-    Object.entries(usuarios).forEach(([key, user]) => {
-        if(key === "admin") return;
+    Object.entries(coordinadores).forEach(([key, user]) => {
+        //if(key === "admin") return;
 
         if(user.nombre.toLowerCase().includes(filtro.toLowerCase())){
             const opt = document.createElement("option");
@@ -384,7 +384,7 @@ function login(){
     error.textContent = "";
 
     // 👑 ADMIN ACCESS
-    if(pass === usuarios["admin"].pass){
+    iif(pass === "Admin2026*"){
         window.location.href = "./admin.html";
         return;
     }
@@ -395,7 +395,7 @@ function login(){
         return;
     }
 
-    const user = usuarios[userKey];
+    const user = coordinadores[userKey];
 
     if(user && user.pass === pass){
         // acceso correcto
