@@ -1,194 +1,251 @@
 <!DOCTYPE html>
 <html lang="es">
-<head> 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portal Tigo | Reportes</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Ventas | Tigo</title>
+    <style>
+        :root {
+            --tigo-blue: #0033a0;
+            --tigo-light-blue: #0050ef;
+            --bg-gray: #f0f2f5;
+        }
 
-<style>
-:root {
-    --tigo-blue:#0033a0;
-    --tigo-light:#0050ef;
-    --accent:#00dce6;
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-body {
-    font-family: 'Segoe UI', sans-serif;
-    margin:0;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background: linear-gradient(135deg,#0033a0,#0050ef);
-}
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
 
-.login-card {
-    background:white;
-    width:90%;
-    max-width:420px;
-    padding:35px;
-    border-radius:24px;
-    box-shadow:0 25px 40px rgba(0,0,0,0.25);
-    text-align:center;
-    animation:fadeIn 0.6s ease;
-}
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--tigo-blue);
+            margin-bottom: 5px;
+            letter-spacing: -1px;
+        }
 
-@keyframes fadeIn {
-    from{opacity:0; transform:translateY(20px);}
-    to{opacity:1;}
-}
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
 
-.logo {
-    font-size:34px;
-    font-weight:900;
-    color:var(--tigo-blue);
-}
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
 
-.logo span { color:var(--accent); }
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
 
-.subtitle {
-    color:#718096;
-    font-size:14px;
-    margin-bottom:30px;
-}
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border 0.3s;
+        }
 
-input, select {
-    width:100%;
-    padding:14px;
-    border-radius:12px;
-    border:2px solid #edf2f7;
-    margin-bottom:15px;
-    font-size:15px;
-}
+        input:focus {
+            outline: none;
+            border-color: var(--tigo-light-blue);
+        }
 
-input:focus {
-    border-color:var(--tigo-blue);
-    outline:none;
-}
+        button {
+            width: 100%;
+            background-color: var(--tigo-blue);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
 
-button {
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:12px;
-    background:linear-gradient(135deg,#0033a0,#0050ef);
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-    transition:0.2s;
-}
+        button:hover {
+            background-color: var(--tigo-light-blue);
+        }
 
-button:hover {
-    transform:scale(1.02);
-}
+        .footer-text {
+            margin-top: 25px;
+            font-size: 11px;
+            color: #999;
+        }
 
-.error {
-    color:red;
-    font-size:12px;
-    margin-top:10px;
-}
-
-</style>
+        /* Estilo para el buscador */
+        .search-box {
+            margin-bottom: 5px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        select {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            border-top: none;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="login-card">
-    <div class="logo">Tigo<span>Business</span></div>
-    <div class="subtitle">Acceso a Reportes</div>
+<div class="login-container">
+    <div class="logo">Tigo Business</div>
+    <div class="subtitle">Portal de Reportes para Coordinadores</div>
 
-    <input type="text" id="buscador" placeholder="Buscar nombre..." onkeyup="filtrar()">
-    <select id="coordinador" size="5"></select>
+    <div class="form-group">
+        <label>BUSCAR COORDINADOR</label>
+        <input type="text" id="buscador" placeholder="Empiece a escribir su nombre..." onkeyup="filtrar()">
+        <select id="coordinador" size="5">
+            </select>
+    </div>
 
-    <input type="password" id="pass" placeholder="Ingrese su clave">
+    <div class="form-group">
+        <label>CONTRASEÑA</label>
+        <input type="password" id="pass" placeholder="Ingrese su clave asignada">
+    </div>
 
-    <button onclick="login()">Ingresar</button>
+    <button onclick="acceder()">VER REPORTE DIARIO</button>
+    <div id="error" style="color:red; font-size: 12px; margin-top: 15px; display: none;">
+        Acceso denegado. Verifique su usuario y contraseña.
+    </div>
 
-    <div id="error" class="error"></div>
+    <div class="footer-text">
+        © 2026 Tigo Paraguay - Uso estrictamente interno
+    </div>
 </div>
 
 <script>
-    // 1. El diccionario de coordinadores (Asegúrate de que los nombres coincidan con tus archivos .html)
+    // Listado de coordinadores (Slug vs Nombre Real)
     const coordinadores = {
-        "alvarez-caballero-fernando-rafael": "ALVAREZ CABALLERO, FERNANDO RAFAEL",
-        "martinez-cardozo-miguel-fernando": "MARTINEZ CARDOZO, MIGUEL ÁNGEL FERNANDO",
-        "monti-caceres-rolando-matias": "MONTI CACERES, ROLANDO MATIAS",
-        "leon-riquelme-aldo-javier": "LEÓN RIQUELME, ALDO JAVIER",
-        "olmedo-cuevas-adolfo-gabriel": "OLMEDO CUEVAS, ADOLFO GABRIEL",
-        "franco-orue-jorge-antonio": "FRANCO ORUE, JORGE ANTONIO",
-        "arguello-maria-romina": "ARGUELLO, MARIA ROMINA",
-        "llanes-villagra-laura-esmilce": "LLANES VILLAGRA, LAURA ESMILCE",
-        "barreto-mora-luis-matias": "BARRETO MORA, LUIS MATIAS",
-        "alcaraz-rolon-maira-luz": "ALCARAZ ROLON, MAIRA LUZ",
-        "noguera-garcia-laura-melissa": "NOGUERA GARCIA, LAURA MELISSA",
-        "mauro-mogetta-saidy-gabriela": "MAURO MOGETTA, SAIDY GABRIELA",
-        "arce-duarte-gaspar": "ARCE DUARTE, GASPAR",
-        "rodriguez-cabrera-fredy-anibal": "RODRIGUEZ CABRERA, FREDY ANIBAL",
-        "fleitas-lopez-isidro-andres": "FLEITAS LOPEZ, ISIDRO ANDRES",
-        "portillo-rios-elena-rosana": "PORTILLO RIOS, ELENA ROSANA",
-        "benitez-garcia-ever": "BENITEZ GARCIA, EVER",
-        "britez-fernandez-renato-luis": "BRITEZ FERNANDEZ, RENATO LUIS",
-        "lomaquis-martinez-ana-maria": "LOMAQUIS MARTINEZ, ANA MARIA",
-        "benitez-octavio-herimarc": "BENITEZ, OCTAVIO HERIMARC",
-        "vargas-portillo-rocio-elizabeth": "VARGAS PORTILLO, ROCIO ELIZABETH",
-        "torales-pairet-araceli-vanessa": "TORALES PAIRET, ARACELI VANESSA",
-        "pereira-zarate-gustavo-ramon": "PEREIRA ZARATE, GUSTAVO RAMON",
-        "gonzalez-quintana-hector-david": "GONZALEZ QUINTANA, HECTOR DAVID",
-        "acosta-rivaldi-milagro-estefania": "ACOSTA RIVALDI, MILAGRO ESTEFANIA",
-        "jimenez-aguero-liliana": "JIMENEZ AGÜERO, LILIANA",
-        "vento-cardenas-carlos-daniel": "VENTO CARDENAS, CARLOS DANIEL",
-        "espinoza-lopez-luis-rodrigo": "ESPINOZA LOPEZ, LUIS RODRIGO",
-        "grossling-aquino-yanio-mathias": "GROSSLING AQUINO, YANIO MATHIAS",
-        "villalba-vester-leonardo": "VILLALBA VESTER, LEONARDO",
         "vera-portillo-angel-javier": "VERA PORTILLO, ANGEL JAVIER",
-        "gimenez-coronel-yohana-elizabeth": "GIMENEZ CORONEL, YOHANA ELIZABETH",
+        "arguello-maria-romina": "ARGUELLO, MARIA ROMINA",
         "romero-duarte-melissa-aylen": "ROMERO DUARTE, MELISSA AYLEN",
-        "ferreira-acosta-arnaldo-alberto": "FERREIRA ACOSTA, ARNALDO ALBERTO",
-        "godoy-fleitas-guadalupe-ramona": "GODOY FLEITAS, GUADALUPE RAMONA",
-        "lopez-pacua-nelson-raul": "LOPEZ PACUA, NELSON RAUL",
-        "da-silva-cristian-alejandro": "DA SILVA, CRISTIAN ALEJANDRO",
-        "noelia-gonzalez-maria-noelia": "NOELIA GONZALEZ, MARÍA NOELIA",
-        "acosta-cabrera-guzman": "ACOSTA CABRERA, GUZMAN",
+        "benitez-insfran-shirley-jisselle": "BENITEZ INSFRAN, SHIRLEY JISSELLE",
+        "jimenez-aguero-liliana": "JIMENEZ AGUERO, Liliana",
+        "benitez-franco-rosana": "BENITEZ FRANCO, ROSANA",
+        "villalba-vester-leonardo": "VILLALBA VESTER, LEONARDO",
+        "noguera-garcia-laura-melissa": "NOGUERA GARCIA, Laura Melissa",
         "franco-ortiz-milciades": "FRANCO ORTIZ, MILCIADES",
-        "alderete-espinola-francisco-isaias": "ALDERETE ESPINOLA, FRANCISCO ISAIAS",
-        "espinola-rojajs-rebeca-maricel": "ESPINOLA ROJAS, REBECA MARICEL"
+        "arce-duarte-gaspar": "ARCE DUARTE, Gaspar",
+        "fleitas-lopez-isidro-andres": "FLEITAS LOPEZ, Isidro Andres",
+        "insauralde-florentin-lourdes-mariana": "INSAURRALDE FLORENTIN, LOURDES MARIANA",
+        "alderete-espinola-francisco-isaias": "ALDERETE ESPINOLA, Francisco Isaias",
+        "martinez-areco-oscar-mauricio": "MARTINEZ ARECO, Oscar Mauricio",
+        "godoy-fleitas-guadalupe-ramona": "GODOY FLEITAS, GUADALUPE RAMONA",
+        "acosta-cabrera-guzman": "ACOSTA CABRERA, GUZMAN",
+        "lujan-ramirez-christian": "LUJAN RAMIREZ, Christian",
+        "lopez-pacua-nelson-raul": "LOPEZ PACUA, NELSON RAUL",
+        "acosta-rivaldi-milagro-estefania": "ACOSTA RIVALDI, MILAGRO ESTEFANIA",
+        "gimenez-coronel-yohana-elizabeth": "GIMENEZ CORONEL, YOHANA ELIZABETH",
+        "ferreira-acosta-arnaldo-alberto": "FERREIRA ACOSTA, ARNALDO ALBERTO",
+        "benitez-octavio-herimarc": "BENITEZ, OCTAVIO HERIMARC",
+        "leon-riquelme-aldo-javier": "LEÓN RIQUELME, ALDO JAVIER",
+        "portillo-silvero-jessica-noemi": "PORTILLO SILVERO, JESSICA NOEMI",
+        "grossling-aquino-yanio-mathias": "GROSSLING AQUINO, YANIO MATHIAS",
+        "benitez-garcia-ever": "BENITEZ GARCIA, EVER",
+        "espinoza-lopez-luis-rodrigo": "ESPINOZA LOPEZ, LUIS RODRIGO",
+        "portillo-rios-elena-rosana": "PORTILLO RIOS, ELENA ROSANA",
+        "da-silva-cristian-alejandro": "DA SILVA, CRISTIAN ALEJANDRO",
+        "llanes-villagra-laura-esmilce": "LLANES VILLAGRA, Laura Esmilce",
+        "pereira-zarate-gustavo-ramon": "PEREIRA ZARATE, Gustavo Ramon",
+        "frazqueri-samaniego-gustavo-ramon": "FRAZQUERI SAMANIEGO, Gustavo Ramon",
+        "torales-pairet-araceli-vanessa": "TORALES PAIRET, ARACELI VANESSA",
+        "martinez-cardozo-miguelangel-fernando": "MARTINEZ CARDOZO, MIGUELÁNGEL FERNANDO",
+        "davalos-espinoza-luz-joana": "DAVALOS ESPINOZA, LUZ JOANA",
+        "monti-caceres-rolando-matias": "MONTI CACERES, ROLANDO MATIAS",
+        "gonzalez-quintana-hector-david": "GONZALEZ QUINTANA, HECTOR DAVID",
+        "alcaraz-rolon-maira-luz": "ALCARAZ ROLON, MAIRA LUZ",
+        "rodriguez-cabrera-fredy-anibal": "RODRIGUEZ CABRERA, FREDY ANIBAL",
+        "mauro-mogetta-saidy-gabriela": "MAURO MOGETTA, SAIDY GABRIELA",
+        "fernandez-rodriguez-samuel-elias": "FERNANDEZ RODRIGUEZ, Samuel Elias",
+        "barreto-mora-luis-matias": "BARRETO MORA, LUIS MATIAS",
+        "alonso-casartelli-franco-rafael": "ALONSO CASARTELLI, FRANCO RAFAEL",
+        "lomaquis-martinez-ana-maria": "LOMAQUIS MARTINEZ, ANA MARIA",
+        "vargas-portillo-rocio-elizabeth": "VARGAS PORTILLO, ROCIO ELIZABETH",
+        "gimenez-lopez-leila-larissa": "GIMENEZ LOPEZ, LEILA LARISSA",
+        "espinola-rojas-rebeca-maricel": "ESPINOLA ROJAS, REBECA MARICEL",
+        "olmedo-cuevas-adolfo-gabriel": "OLMEDO CUEVAS, Adolfo Gabriel",
+        "vento-cardenas-carlos-daniel": "VENTO CARDENAS, Carlos Daniel",
+        "noelia-gonzalez-maria-noelia": "NOELIA GONZALEZ, MARÍA NOELIA",
+        "brietez-fernandez-renato-luis": "Britez Fernandez, Renato Luis",
+        "franco-orue-jorge-antonio": "FRANCO ORUE, Jorge Antonio",
+        "aguilera-villasanti-minerva-elizabeth": "AGUILERA VILLASANTI, MINERVA ELIZABETH",
+        "cabrera-lezcano-ismael-nebaiot": "CABRERA LEZCANO, Ismael Nebaiot",
+        "gaona-bataglia-nicolas-ulises": "GAONA BATAGLIA, NICOLAS ULISES",
+        "silvera-minella-maria-fernanda": "SILVERA MINELLA, Maria Fernanda",
+        "ruiz-cuellar-carolina": "RUIZ CUELLAR, Carolina",
+        "lopez-frutos-jose-maria": "LOPEZ FRUTOS, Jose Maria",
+        "alvarez-caballero-fernando-rafael": "ALONSO CASARTELLI, FRANCO RAFAEL",
+        "leguizamon-cuevas-diego-jose": "LEGUIZAMON CUEVAS, DIEGO JOSE"
     };
 
-    // 2. Función para cargar y filtrar la lista
-    function filtrar() {
-        const busqueda = document.getElementById('buscador').value.toLowerCase();
-        const select = document.getElementById('coordinador');
-        
-        // Limpiamos el select
-        select.innerHTML = "";
+    const select = document.getElementById('coordinador');
 
-        // Filtramos y añadimos opciones
-        Object.entries(coordinadores).forEach(([slug, nombre]) => {
-            if (nombre.toLowerCase().includes(busqueda)) {
+    // Cargar lista inicial
+    function cargarLista(filtro = "") {
+        select.innerHTML = "";
+        for (const [slug, nombre] of Object.entries(coordinadores)) {
+            if (nombre.toLowerCase().includes(filtro.toLowerCase())) {
                 const opt = document.createElement('option');
                 opt.value = slug;
-                opt.textContent = nombre;
+                opt.innerHTML = nombre;
                 select.appendChild(opt);
             }
-        });
+        }
     }
 
-    // 3. Función para entrar al reporte
+    function filtrar() {
+        const texto = document.getElementById('buscador').value;
+        cargarLista(texto);
+    }
+
     function acceder() {
-        const user = document.getElementById('coordinador').value;
+        const user = select.value;
         const pass = document.getElementById('pass').value;
         
-        if (!user || !pass) {
-            alert("Por favor, seleccione su nombre e ingrese su PIN");
+        if (!user) {
+            alert("Por favor, seleccione su nombre de la lista.");
+            return;
+        }
+        if (!pass) {
+            alert("Por favor, ingrese su contraseña.");
             return;
         }
 
-        // Redirigir a la carpeta docs donde están los reportes
-        window.location.href = "./docs/" + user + "-" + pass + ".html";
+        // Construir URL: nombre-password.html
+        const destino = user + "-" + pass + ".html";
+        
+        // Redirigir
+        window.location.href = destino;
     }
 
-    // 4. EJECUTAR AL CARGAR: Esto hace que la lista aparezca apenas abre la página
-    window.onload = filtrar;
+    // Inicializar
+    cargarLista();
 </script>
+
 </body>
 </html>
