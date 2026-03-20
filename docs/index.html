@@ -2,164 +2,114 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Portal de Ventas | Tigo</title>
     <style>
         :root {
             --tigo-blue: #0033a0;
             --tigo-light: #0050ef;
-            --accent: #00dce6;
-            --text-dark: #1a202c;
+            --bg-gray: #f0f2f5;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: #f0f4f8;
-            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg-gray);
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            margin: 0;
         }
 
-        .login-card {
+        .login-container {
             background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             width: 90%;
-            max-width: 400px;
-            padding: 35px 25px;
-            border-radius: 24px;
-            box-shadow: 0 20px 25px -5px rgba(0, 51, 160, 0.1);
+            max-width: 380px;
             text-align: center;
         }
 
         .logo {
-            font-size: 32px;
-            font-weight: 900;
+            font-size: 28px;
+            font-weight: bold;
             color: var(--tigo-blue);
             margin-bottom: 5px;
-            letter-spacing: -1px;
         }
 
-        .logo span { color: var(--accent); }
+        .subtitle { color: #666; font-size: 14px; margin-bottom: 25px; }
 
-        .subtitle {
-            color: #718096;
-            font-size: 14px;
-            margin-bottom: 30px;
-            font-weight: 500;
-        }
+        .form-group { text-align: left; margin-bottom: 15px; position: relative; }
 
-        .form-group {
-            text-align: left;
-            margin-bottom: 18px;
-            position: relative;
-        }
-
-        label {
-            display: block;
-            font-size: 11px;
-            font-weight: 800;
-            color: var(--tigo-blue);
-            margin-bottom: 6px;
-            letter-spacing: 0.5px;
-        }
+        label { display: block; font-size: 11px; font-weight: 700; color: var(--tigo-blue); margin-bottom: 5px; }
 
         input {
             width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #edf2f7;
-            border-radius: 12px;
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 10px;
             font-size: 16px;
             box-sizing: border-box;
-            transition: all 0.2s;
-        }
-
-        input:focus {
-            border-color: var(--tigo-blue);
-            background: #fdfdff;
             outline: none;
         }
 
-        /* Lista desplegable oculta que aparece al buscar */
-        #lista-sugerencias {
+        input:focus { border-color: var(--tigo-blue); }
+
+        /* LISTA DE SUGERENCIAS MEJORADA */
+        #coordinador {
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 0 0 10px 10px;
+            display: none; /* OCULTO POR DEFECTO */
             position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            margin-top: 5px;
-            max-height: 200px;
-            overflow-y: auto;
             z-index: 100;
-            display: none; /* Oculta por defecto */
-            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            background: white;
+            max-height: 150px;
+            overflow-y: auto;
         }
 
-        .sugerencia-item {
-            padding: 12px 16px;
-            cursor: pointer;
-            font-size: 14px;
-            text-align: left;
-            border-bottom: 1px solid #f7fafc;
-        }
-
-        .sugerencia-item:hover {
-            background-color: #f0f4ff;
-            color: var(--tigo-blue);
-        }
+        option { padding: 12px; border-bottom: 1px solid #f0f0f0; }
 
         button {
             width: 100%;
-            background: var(--tigo-blue);
+            background-color: var(--tigo-blue);
             color: white;
-            padding: 16px;
+            padding: 15px;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 10px;
-            box-shadow: 0 4px 10px rgba(0, 51, 160, 0.2);
-            transition: all 0.2s;
+            margin-top: 15px;
         }
 
-        button:active { transform: translateY(2px); box-shadow: none; }
-
-        .footer-tag {
-            margin-top: 30px;
-            font-size: 10px;
-            color: #a0aec0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        .footer-text { margin-top: 20px; font-size: 10px; color: #999; }
     </style>
 </head>
 <body>
 
-<div class="login-card">
-    <div class="logo">Tigo<span>Business</span></div>
-    <div class="subtitle">Gestión de Ventas</div>
+<div class="login-container">
+    <div class="logo">Tigo Business</div>
+    <div class="subtitle">Portal de Reportes</div>
 
     <div class="form-group">
-        <label>Buscar Coordinador</label>
-        <input type="text" id="buscador" placeholder="Escriba su nombre..." autocomplete="off" oninput="filtrar()">
-        <div id="lista-sugerencias"></div>
-        <input type="hidden" id="slug-seleccionado">
+        <label>BUSCAR COORDINADOR</label>
+        <input type="text" id="buscador" placeholder="Escriba su nombre..." oninput="filtrar()" autocomplete="off">
+        <select id="coordinador" size="5" onclick="seleccionar()"></select>
     </div>
 
     <div class="form-group">
-        <label>PIN de Acceso</label>
+        <label>PIN DE ACCESO</label>
         <input type="password" id="pass" placeholder="Clave de 8 dígitos">
     </div>
 
     <button onclick="acceder()">ENTRAR AL REPORTE</button>
-
-    <div class="footer-tag">© 2026 Sistema de Notificaciones</div>
+    <div class="footer-text">© 2026 Tigo Paraguay</div>
 </div>
 
 <script>
+    // Listado de coordinadores (Slug vs Nombre Real)
     const coordinadores = {
         "vera-portillo-angel-javier": "VERA PORTILLO, ANGEL JAVIER",
         "arguello-maria-romina": "ARGUELLO, MARIA ROMINA",
@@ -225,55 +175,53 @@
 
     function filtrar() {
         const input = document.getElementById('buscador');
-        const lista = document.getElementById('lista-sugerencias');
+        const select = document.getElementById('coordinador');
         const filtro = input.value.toLowerCase();
         
-        lista.innerHTML = "";
+        select.innerHTML = "";
         
         if (filtro.length < 2) {
-            lista.style.display = "none";
+            select.style.display = "none";
             return;
         }
 
         let encontrados = 0;
         for (const [slug, nombre] of Object.entries(coordinadores)) {
             if (nombre.toLowerCase().includes(filtro)) {
-                const item = document.createElement('div');
-                item.className = 'sugerencia-item';
-                item.textContent = nombre;
-                item.onclick = function() {
-                    input.value = nombre;
-                    document.getElementById('slug-seleccionado').value = slug;
-                    lista.style.display = "none";
-                };
-                lista.appendChild(item);
+                const opt = document.createElement('option');
+                opt.value = slug;
+                opt.innerHTML = nombre;
+                select.appendChild(opt);
                 encontrados++;
             }
         }
+        select.style.display = encontrados > 0 ? "block" : "none";
+    }
 
-        lista.style.display = encontrados > 0 ? "block" : "none";
+    function seleccionar() {
+        const select = document.getElementById('coordinador');
+        const input = document.getElementById('buscador');
+        input.value = select.options[select.selectedIndex].text;
+        input.dataset.slug = select.value;
+        select.style.display = "none";
     }
 
     function acceder() {
-        const slug = document.getElementById('slug-seleccionado').value;
+        const slug = document.getElementById('buscador').dataset.slug;
         const pass = document.getElementById('pass').value;
         
         if (!slug || !pass) {
-            alert("Seleccione su nombre de la lista e ingrese su PIN.");
+            alert("Por favor, seleccione su nombre de la lista e ingrese su PIN.");
             return;
         }
 
-        // Redirigir a la carpeta docs
+        // SOLUCIÓN AL ERROR 404:
+        // Si el index.html está en la raíz y los reportes en /docs:
         window.location.href = "./docs/" + slug + "-" + pass + ".html";
+        
+        // Si el index.html ya está DENTRO de la carpeta /docs, usa esta:
+        // window.location.href = "./" + slug + "-" + pass + ".html";
     }
-
-    // Cerrar lista si se hace clic afuera
-    document.addEventListener('click', function(e) {
-        if (e.target.id !== 'buscador') {
-            document.getElementById('lista-sugerencias').style.display = "none";
-        }
-    });
 </script>
-
 </body>
 </html>
