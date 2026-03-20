@@ -1,148 +1,107 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Portal de Ventas | Tigo</title>
-    <style>
-    :root {
-        --tigo-blue: #0033a0;
-        --tigo-light-blue: #0050ef;
-        --bg-gray: #f0f2f5;
-    }
-    
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #0033a0, #0050ef);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        margin: 0;
-    }
-    
-    .login-container {
-        background: white;
-        padding: 25px;
-        border-radius: 16px;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        width: 95%;
-        max-width: 400px;
-        text-align: center;
-        animation: fadeIn 0.5s ease;
-    }
-    
-    @keyframes fadeIn {
-        from {opacity: 0; transform: translateY(10px);}
-        to {opacity: 1; transform: translateY(0);}
-    }
-    
-    .logo {
-        font-size: 26px;
-        font-weight: bold;
-        color: var(--tigo-blue);
-    }
-    
-    .subtitle {
-        color: #777;
-        font-size: 13px;
-        margin-bottom: 20px;
-    }
-    
-    .form-group {
-        text-align: left;
-        margin-bottom: 18px;
-    }
-    
-    label {
-        font-size: 12px;
-        font-weight: bold;
-        margin-bottom: 6px;
-        display: block;
-    }
-    
-    input, select {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        font-size: 14px;
-        box-sizing: border-box;
-    }
-    
-    input:focus {
-        border-color: var(--tigo-light-blue);
-        outline: none;
-        box-shadow: 0 0 5px rgba(0,80,239,0.3);
-    }
-    
-    /* Lista más elegante */
-    select {
-        margin-top: 5px;
-        max-height: 120px;
-        overflow-y: auto;
-        display: none; /* 👈 oculto por defecto */
-    }
-    
-    /* Mostrar cuando hay búsqueda */
-    select.show {
-        display: block;
-    }
-    
-    /* Scroll bonito */
-    select::-webkit-scrollbar {
-        width: 6px;
-    }
-    select::-webkit-scrollbar-thumb {
-        background: var(--tigo-blue);
-        border-radius: 10px;
-    }
-    
-    button {
-        width: 100%;
-        background-color: var(--tigo-blue);
-        color: white;
-        padding: 14px;
-        border: none;
-        border-radius: 10px;
-        font-size: 15px;
-        font-weight: bold;
-        cursor: pointer;
-        margin-top: 10px;
-    }
-    
-    button:hover {
-        background-color: var(--tigo-light-blue);
-    }
-    
-    /* Botón limpiar */
-    .btn-clear {
-        background: #ccc;
-        color: #333;
-    }
-    
-    .btn-clear:hover {
-        background: #999;
-    }
-    
-    .footer-text {
-        margin-top: 20px;
-        font-size: 10px;
-        color: #aaa;
-    }
-    
-    /* Mobile mejora */
-    @media (max-width: 480px) {
-        .login-container {
-            padding: 20px;
-        }
-    
-        input, button {
-            font-size: 16px;
-        }
-    }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Portal de Ventas | Tigo</title>
+
+<style>
+:root {
+    --tigo-blue: #0033a0;
+    --tigo-light-blue: #0050ef;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0033a0, #0050ef);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    width: 95%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: bold;
+    color: var(--tigo-blue);
+}
+
+.subtitle {
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+label {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 6px;
+    display: block;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+input:focus {
+    border-color: var(--tigo-light-blue);
+    outline: none;
+    box-shadow: 0 0 5px rgba(0,80,239,0.3);
+}
+
+/* lista */
+select {
+    margin-top: 5px;
+    max-height: 120px;
+    overflow-y: auto;
+    display: none;
+}
+
+select.show {
+    display: block;
+}
+
+button {
+    width: 100%;
+    background-color: var(--tigo-blue);
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-clear {
+    background: #ccc;
+    color: #333;
+}
+</style>
 </head>
+
 <body>
 
 <div class="login-container">
@@ -152,7 +111,7 @@
     <div class="form-group">
         <label>BUSCAR MI NOMBRE</label>
         <input type="text" id="buscador" placeholder="Escriba aquí..." oninput="filtrar()" autocomplete="off">
-        <select id="coordinador" size="5" onclick="seleccionar()"></select>
+        <select id="coordinador" size="5"></select>
     </div>
 
     <div class="form-group">
@@ -162,10 +121,11 @@
 
     <button onclick="acceder()">ENTRAR AL REPORTE</button>
     <button onclick="limpiar()" class="btn-clear">LIMPIAR</button>
-    <div class="footer-text">© 2026 Tigo Paraguay</div>
+
 </div>
 
 <script>
+// Listado de coordinadores (Slug vs Nombre Real)
     const coordinadores = {
         "vera-portillo-angel-javier": "VERA PORTILLO, ANGEL JAVIER",
         "arguello-maria-romina": "ARGUELLO, MARIA ROMINA",
@@ -229,59 +189,77 @@
         "leguizamon-cuevas-diego-jose": "LEGUIZAMON CUEVAS, DIEGO JOSE"
     };
 
-    const select = document.getElementById('coordinador');
-    const buscador = document.getElementById('buscador');
+const select = document.getElementById('coordinador');
+const buscador = document.getElementById('buscador');
 
-    function filtrar() {
-        const texto = document.getElementById('buscador').value;
-        cargarLista(texto);
-    
-        const select = document.getElementById('coordinador');
-    
-        if (texto.length > 0) {
-            select.classList.add("show");
-        } else {
-            select.classList.remove("show");
+
+// 🔥 ESTA FUNCIÓN FALTABA (CLAVE)
+function cargarLista(filtro = "") {
+    select.innerHTML = "";
+
+    for (const [slug, nombre] of Object.entries(coordinadores)) {
+        if (nombre.toLowerCase().includes(filtro.toLowerCase())) {
+            const option = document.createElement("option");
+            option.value = slug;
+            option.textContent = nombre;
+            select.appendChild(option);
         }
     }
-    
-    // Ocultar lista al seleccionar
-    select.addEventListener("change", () => {
+}
+
+
+// FILTRO
+function filtrar() {
+    const texto = buscador.value;
+
+    cargarLista(texto);
+
+    if (texto.length > 0 && select.options.length > 0) {
+        select.classList.add("show");
+    } else {
         select.classList.remove("show");
-    });
-    
-    // Botón limpiar
-    function limpiar() {
-        document.getElementById('buscador').value = "";
-        document.getElementById('pass').value = "";
-        document.getElementById('coordinador').innerHTML = "";
+    }
+}
+
+
+// SELECCIÓN (FIX importante)
+select.addEventListener("change", function () {
+    buscador.value = this.options[this.selectedIndex].text;
+    buscador.dataset.slug = this.value;
+    select.classList.remove("show");
+});
+
+
+// LIMPIAR
+function limpiar() {
+    buscador.value = "";
+    document.getElementById('pass').value = "";
+    buscador.dataset.slug = "";
+    select.innerHTML = "";
+    select.classList.remove("show");
+}
+
+
+// ACCESO
+function acceder() {
+    const slug = buscador.dataset.slug;
+    const pass = document.getElementById('pass').value;
+
+    if (!slug || !pass) {
+        alert("Seleccione su nombre de la lista e ingrese su contraseña.");
+        return;
     }
 
-    function seleccionar() {
-        buscador.value = select.options[select.selectedIndex].text;
-        buscador.dataset.slug = select.value;
-        select.style.display = "none";
+    window.location.href = "./docs/" + slug + "-" + pass + ".html";
+}
+
+
+// cerrar lista clic afuera
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.form-group')) {
+        select.classList.remove("show");
     }
-
-    function acceder() {
-        const slug = buscador.dataset.slug;
-        const pass = document.getElementById('pass').value;
-        
-        if (!slug || !pass) {
-            alert("Seleccione su nombre de la lista e ingrese su contraseña.");
-            return;
-        }
-
-        // CORRECCIÓN RUTA GITHUB PAGES: Apunta a la carpeta /docs
-        window.location.href = "./docs/" + slug + "-" + pass + ".html";
-    }
-
-    // Cerrar lista si se hace clic afuera
-    document.addEventListener('click', function(e) {
-        if (e.target.id !== 'buscador' && e.target.id !== 'coordinador') {
-            select.style.display = "none";
-        }
-    });
+});
 </script>
 
 </body>
