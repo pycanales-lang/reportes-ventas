@@ -1,178 +1,412 @@
 <!DOCTYPE html>
 <html lang="es">
 <head> 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Portal de Reportes | Tigo</title>
-    <style>
-        :root {
-            --tigo-blue: #0033a0;
-            --tigo-light: #0050ef;
-            --accent: #00dce6;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal Tigo | Reportes</title>
 
-        body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background-color: #f0f4f8;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+<style>
+:root {
+    --tigo-blue:#0033a0;
+    --tigo-light:#0050ef;
+    --accent:#00dce6;
+}
 
-        .login-card {
-            background: white;
-            width: 90%;
-            max-width: 400px;
-            padding: 30px;
-            border-radius: 24px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(135deg,#0033a0,#0050ef);
+}
 
-        .logo {
-            font-size: 35px;
-            font-weight: 900;
-            color: var(--tigo-blue);
-            margin-bottom: 5px;
-            letter-spacing: -1.5px;
-        }
+.login-card {
+    background:white;
+    width:90%;
+    max-width:420px;
+    padding:35px;
+    border-radius:24px;
+    box-shadow:0 25px 40px rgba(0,0,0,0.25);
+    text-align:center;
+    animation:fadeIn 0.6s ease;
+}
 
-        .logo span { color: var(--tigo-accent); }
+@keyframes fadeIn {
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1;}
+}
 
-        .subtitle {
-            color: #718096;
-            font-size: 14px;
-            margin-bottom: 35px;
-        }
+.logo {
+    font-size:34px;
+    font-weight:900;
+    color:var(--tigo-blue);
+}
 
-        .form-group {
-            text-align: left;
-            margin-bottom: 20px;
-        }
+.logo span { color:var(--accent); }
 
-        label {
-            display: block;
-            font-size: 11px;
-            font-weight: 800;
-            color: var(--tigo-blue);
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-        }
+.subtitle {
+    color:#718096;
+    font-size:14px;
+    margin-bottom:30px;
+}
 
-        input, select {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #edf2f7;
-            border-radius: 12px;
-            font-size: 16px; /* Evita zoom molesto en móviles */
-            box-sizing: border-box;
-            transition: all 0.2s;
-        }
+input, select {
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+    border:2px solid #edf2f7;
+    margin-bottom:15px;
+    font-size:15px;
+}
 
-        input:focus {
-            border-color: var(--tigo-blue);
-            background: #fdfdff;
-            outline: none;
-        }
+input:focus {
+    border-color:var(--tigo-blue);
+    outline:none;
+}
 
-        #coordinador {
-            margin-top: -2px;
-            border-top: none;
-            border-radius: 0 0 12px 12px;
-            background: #f8fafc;
-            height: 150px;
-        }
+button {
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#0033a0,#0050ef);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.2s;
+}
 
-        #buscador {
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-            border-bottom: 1px dashed #cbd5e0;
-        }
+button:hover {
+    transform:scale(1.02);
+}
 
-        button {
-            width: 100%;
-            background: var(--tigo-blue);
-            color: white;
-            padding: 16px;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-            box-shadow: 0 4px 6px rgba(0, 51, 160, 0.2);
-        }
+.error {
+    color:red;
+    font-size:12px;
+    margin-top:10px;
+}
 
-        button:active { transform: translateY(2px); }
-
-        .footer-tag {
-            margin-top: 30px;
-            font-size: 10px;
-            color: #a0aec0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-    </style>
+</style>
 </head>
+
 <body>
 
 <div class="login-card">
     <div class="logo">Tigo<span>Business</span></div>
-    <div class="subtitle">Dashboard de Gestión de Ventas</div>
+    <div class="subtitle">Acceso a Reportes</div>
 
-    <div class="form-group">
-        <label>Buscar Mi Nombre</label>
-        <input type="text" id="buscador" placeholder="Escriba aquí..." onkeyup="filtrar()">
-        <select id="coordinador" size="5"></select>
-    </div>
+    <input type="text" id="buscador" placeholder="Buscar nombre..." onkeyup="filtrar()">
+    <select id="coordinador" size="5"></select>
 
-    <div class="form-group">
-        <label>Pin de Acceso</label>
-        <input type="password" id="pass" placeholder="Clave de 8 dígitos">
-    </div>
+    <input type="password" id="pass" placeholder="Ingrese su clave">
 
-    <button onclick="acceder()">ENTRAR AL REPORTE</button>
+    <button onclick="login()">Ingresar</button>
 
-    <div class="footer-tag">© 2026 Sistema de Notificaciones</div>
+    <div id="error" class="error"></div>
 </div>
 
 <script>
-    // Tu objeto de coordinadores se mantiene igual aquí
-    const coordinadores = {
-        "vera-portillo-angel-javier": "VERA PORTILLO, ANGEL JAVIER",
-        "arguello-maria-romina": "ARGUELLO, MARIA ROMINA",
-        "romero-duarte-melissa-aylen": "ROMERO DUARTE, MELISSA AYLEN",
-        // ... añadir el resto aquí
-    };
 
-    function cargarLista(filtro = "") {
-        const select = document.getElementById('coordinador');
-        select.innerHTML = "";
-        Object.entries(coordinadores).forEach(([slug, nombre]) => {
-            if (nombre.toLowerCase().includes(filtro.toLowerCase())) {
-                const opt = document.createElement('option');
-                opt.value = slug;
-                opt.textContent = nombre;
-                select.appendChild(opt);
-            }
-        });
+// 🔹 JSON REAL (ejemplo reducido, vos pegás el completo)
+const coordinadores = {
+    "vera-portillo-angel-javier": {
+        nombre: "VERA PORTILLO, ANGEL JAVIER",
+        pass: "790062026"
+    },
+    "arguello-maria-romina": {
+        nombre: "ARGUELLO, MARIA ROMINA",
+        pass: "427062026"
+    },
+    "romero-duarte-melissa-aylen": {
+        nombre: "ROMERO DUARTE, MELISSA AYLEN",
+        pass: "826152026"
+    },
+    "benitez-insfran-shirley-jisselle": {
+        nombre: "BENITEZ INSFRAN, SHIRLEY JISSELLE",
+        pass: "889922026"
+    },
+    "jimenez-aguero-liliana": {
+        nombre: "JIMENEZ AGUERO, Liliana",
+        pass: "703652026"
+    },
+    "benitez-franco-rosana": {
+        nombre: "BENITEZ FRANCO, ROSANA",
+        pass: "895202026"
+    },
+    "villalba-vester-leonardo": {
+        nombre: "VILLALBA VESTER, LEONARDO",
+        pass: "79522026"
+    },
+    "noguera-garcia-laura-melissa": {
+        nombre: "NOGUERA GARCIA, Laura Melissa",
+        pass: "274612026"
+    },
+    "franco-ortiz-milciades": {
+        nombre: "FRANCO ORTIZ, MILCIADES",
+        pass: "660142026"
+    },
+    "arce-duarte-gaspar": {
+        nombre: "ARCE DUARTE, Gaspar",
+        pass: "801892026"
+    },
+    "fleitas-lopez-isidro-andres": {
+        nombre: "FLEITAS LOPEZ, Isidro Andres",
+        pass: "466452026"
+    },
+    "insauralde-florentin-lourdes-mariana": {
+        nombre: "INSAURRALDE FLORENTIN, LOURDES MARIANA",
+        pass: "517222026"
+    },
+    "alderete-espinola-francisco-isaias": {
+        nombre: "ALDERETE ESPINOLA, Francisco Isaias",
+        pass: "464782026"
+    },
+    "martinez-areco-oscar-mauricio": {
+        nombre: "MARTINEZ ARECO, Oscar Mauricio",
+        pass: "417132026"
+    },
+    "godoy-fleitas-guadalupe-ramona": {
+        nombre: "GODOY FLEITAS, GUADALUPE RAMONA",
+        pass: "712572026"
+    },
+    "acosta-cabrera-guzman": {
+        nombre: "ACOSTA CABRERA, GUZMAN",
+        pass: "683972026"
+    },
+    "lujan-ramirez-christian": {
+        nombre: "LUJAN RAMIREZ, Christian",
+        pass: "713892026"
+    },
+    "lopez-pacua-nelson-raul": {
+        nombre: "LOPEZ PACUA, NELSON RAUL",
+        pass: "1009772026"
+    },
+    "acosta-rivaldi-milagro-estefania": {
+        nombre: "ACOSTA RIVALDI, MILAGRO ESTEFANIA",
+        pass: "549912026"
+    },
+    "gimenez-coronel-yohana-elizabeth": {
+        nombre: "GIMENEZ CORONEL, YOHANA ELIZABETH",
+        pass: "565222026"
+    },
+    "ferreira-acosta-arnaldo-alberto": {
+        nombre: "FERREIRA ACOSTA, ARNALDO ALBERTO",
+        pass: "365982026"
+    },
+    "benitez-octavio-herimarc": {
+        nombre: "BENITEZ, OCTAVIO HERIMARC",
+        pass: "686082026"
+    },
+    "leon-riquelme-aldo-javier": {
+        nombre: "LEÓN RIQUELME, ALDO JAVIER",
+        pass: "826182026"
+    },
+    "portillo-silvero-jessica-noemi": {
+        nombre: "PORTILLO SILVERO, JESSICA NOEMI",
+        pass: "663902026"
+    },
+    "grossling-aquino-yanio-mathias": {
+        nombre: "GROSSLING AQUINO, YANIO MATHIAS",
+        pass: "835612026"
+    },
+    "benitez-garcia-ever": {
+        nombre: "BENITEZ GARCIA, EVER",
+        pass: "603422026"
+    },
+    "espinoza-lopez-luis-rodrigo": {
+        nombre: "ESPINOZA LOPEZ, LUIS RODRIGO",
+        pass: "706252026"
+    },
+    "portillo-rios-elena-rosana": {
+        nombre: "PORTILLO RIOS, ELENA ROSANA",
+        pass: "353272026"
+    },
+    "da-silva-cristian-alejandro": {
+        nombre: "DA SILVA, CRISTIAN ALEJANDRO",
+        pass: "732752026"
+    },
+    "llanes-villagra-laura-esmilce": {
+        nombre: "LLANES VILLAGRA, Laura Esmilce",
+        pass: "563772026"
+    },
+    "pereira-zarate-gustavo-ramon": {
+        nombre: "PEREIRA ZARATE, Gustavo Ramon",
+        pass: "770122026"
+    },
+    "frazqueri-samaniego-gustavo-ramon": {
+        nombre: "FRAZQUERI SAMANIEGO, Gustavo Ramon",
+        pass: "572202026"
+    },
+    "torales-pairet-araceli-vanessa": {
+        nombre: "TORALES PAIRET, ARACELI VANESSA",
+        pass: "712302026"
+    },
+    "martinez-cardozo-miguelangel-fernando": {
+        nombre: "MARTINEZ CARDOZO, MIGUELÁNGEL FERNANDO",
+        pass: "618082026"
+    },
+    "davalos-espinoza-luz-joana": {
+        nombre: "DAVALOS ESPINOZA, LUZ JOANA",
+        pass: "761682026"
+    },
+    "monti-caceres-rolando-matias": {
+        nombre: "MONTI CACERES, ROLANDO MATIAS",
+        pass: "728432026"
+    },
+    "gonzalez-quintana-hector-david": {
+        nombre: "GONZALEZ QUINTANA, HECTOR DAVID",
+        pass: "559002026"
+    },
+    "alcaraz-rolon-maira-luz": {
+        nombre: "ALCARAZ ROLON, MAIRA LUZ",
+        pass: "783762026"
+    },
+    "rodriguez-cabrera-fredy-anibal": {
+        nombre: "RODRIGUEZ CABRERA, FREDY ANIBAL",
+        pass: "994882026"
+    },
+    "mauro-mogetta-saidy-gabriela": {
+        nombre: "MAURO MOGETTA, SAIDY GABRIELA",
+        pass: "728412026"
+    },
+    "fernandez-rodriguez-samuel-elias": {
+        nombre: "FERNANDEZ RODRIGUEZ, Samuel Elias",
+        pass: "568542026"
+    },
+    "barreto-mora-luis-matias": {
+        nombre: "BARRETO MORA, LUIS MATIAS",
+        pass: "748902026"
+    },
+    "alonso-casartelli-franco-rafael": {
+        nombre: "ALONSO CASARTELLI, FRANCO RAFAEL",
+        pass: "619832026"
+    },
+    "lomaquis-martinez-ana-maria": {
+        nombre: "LOMAQUIS MARTINEZ, ANA MARIA",
+        pass: "866922026"
+    },
+    "vargas-portillo-rocio-elizabeth": {
+        nombre: "VARGAS PORTILLO, ROCIO ELIZABETH",
+        pass: "753202026"
+    },
+    "gimenez-lopez-leila-larissa": {
+        nombre: "GIMENEZ LOPEZ, LEILA LARISSA",
+        pass: "652712026"
+    },
+    "espinola-rojas-rebeca-maricel": {
+        nombre: "ESPINOLA ROJAS, REBECA MARICEL",
+        pass: "734732026"
+    },
+    "olmedo-cuevas-adolfo-gabriel": {
+        nombre: "OLMEDO CUEVAS, Adolfo Gabriel",
+        pass: "193802026"
+    },
+    "vento-cardenas-carlos-daniel": {
+        nombre: "VENTO CARDENAS, Carlos Daniel",
+        pass: "254432026"
+    },
+    "noelia-gonzalez-maria-noelia": {
+        nombre: "NOELIA GONZALEZ, MARÍA NOELIA",
+        pass: "443172026"
+    },
+    "brietez-fernandez-renato-luis": {
+        nombre: "Britez Fernandez, Renato Luis",
+        pass: "1008242026"
+    },
+    "franco-orue-jorge-antonio": {
+        nombre: "FRANCO ORUE, Jorge Antonio",
+        pass: "126632026"
+    },
+    "aguilera-villasanti-minerva-elizabeth": {
+        nombre: "AGUILERA VILLASANTI, MINERVA ELIZABETH",
+        pass: "575342026"
+    },
+    "cabrera-lezcano-ismael-nebaiot": {
+        nombre: "CABRERA LEZCANO, Ismael Nebaiot",
+        pass: "712832026"
+    },
+    "gaona-bataglia-nicolas-ulises": {
+        nombre: "GAONA BATAGLIA, NICOLAS ULISES",
+        pass: "451422026"
+    },
+    "silvera-minella-maria-fernanda": {
+        nombre: "SILVERA MINELLA, Maria Fernanda",
+        pass: "612172026"
+    },
+    "ruiz-cuellar-carolina": {
+        nombre: "RUIZ CUELLAR, Carolina",
+        pass: "603382026"
+    },
+    "lopez-frutos-jose-maria": {
+        nombre: "LOPEZ FRUTOS, Jose Maria",
+        pass: "713122026"
+    },
+    "alvarez-caballero-fernando-rafael": {
+        nombre: "ALVAREZ CABALLERO, FERNANDO RAFAEL",
+        pass: "729962026"
+    },
+    "leguizamon-cuevas-diego-jose": {
+        nombre: "LEGUIZAMON CUEVAS, DIEGO JOSE",
+        pass: "577092026"
+    }
+};
+
+// 🔹 Cargar lista
+function cargarLista(filtro="") {
+    const select = document.getElementById("coordinador");
+    select.innerHTML = "";
+
+    Object.entries(usuarios).forEach(([key, user]) => {
+        if(key === "admin") return;
+
+        if(user.nombre.toLowerCase().includes(filtro.toLowerCase())){
+            const opt = document.createElement("option");
+            opt.value = key;
+            opt.textContent = user.nombre;
+            select.appendChild(opt);
+        }
+    });
+}
+
+// 🔹 Buscar
+function filtrar(){
+    cargarLista(document.getElementById("buscador").value);
+}
+
+// 🔐 LOGIN PRO
+function login(){
+    const userKey = document.getElementById("coordinador").value;
+    const pass = document.getElementById("pass").value;
+    const error = document.getElementById("error");
+
+    error.textContent = "";
+
+    // 👑 ADMIN ACCESS
+    if(pass === usuarios["admin"].pass){
+        window.location.href = "./admin.html";
+        return;
     }
 
-    function filtrar() {
-        cargarLista(document.getElementById('buscador').value);
+    // Validación normal
+    if(!userKey || !pass){
+        error.textContent = "Complete todos los campos";
+        return;
     }
 
-    function acceder() {
-        const user = document.getElementById('coordinador').value;
-        const pass = document.getElementById('pass').value;
-        if(!user || !pass) { alert("Seleccione su nombre e ingrese su clave"); return; }
-        // Los archivos están dentro de la carpeta docs
-        window.location.href = `./${user}-${pass}.html`;
-    }
+    const user = usuarios[userKey];
 
-    cargarLista();
+    if(user && user.pass === pass){
+        // acceso correcto
+        window.location.href = `./docs/${userKey}.html`;
+    } else {
+        error.textContent = "Clave incorrecta";
+    }
+}
+
+cargarLista();
+
 </script>
 </body>
 </html>
