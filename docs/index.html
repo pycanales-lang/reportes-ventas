@@ -3,100 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Portal de Ventas | Tigo</title>
+    <title>Portal Tigo Business</title>
     <style>
-        :root {
-            --tigo-blue: #0033a0;
-            --tigo-light: #0050ef;
-            --bg-gray: #f0f2f5;
+        :root { --tigo-blue: #0033a0; --tigo-light: #0050ef; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        
+        .login-card { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+            width: 85%; 
+            max-width: 380px; 
+            position: relative;
         }
 
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: var(--bg-gray);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-        }
+        .logo { font-size: 28px; font-weight: bold; color: var(--tigo-blue); margin-bottom: 25px; text-align: center; }
+        
+        .form-group { position: relative; margin-bottom: 20px; text-align: left; }
+        
+        label { display: block; font-size: 11px; font-weight: 800; color: var(--tigo-blue); margin-bottom: 5px; }
 
-        .login-container {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            width: 90%;
-            max-width: 380px;
-            text-align: center;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--tigo-blue);
-            margin-bottom: 5px;
-        }
-
-        .subtitle { color: #666; font-size: 14px; margin-bottom: 25px; }
-
-        .form-group { text-align: left; margin-bottom: 15px; position: relative; }
-
-        label { display: block; font-size: 11px; font-weight: 700; color: var(--tigo-blue); margin-bottom: 5px; }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #eee;
-            border-radius: 10px;
-            font-size: 16px;
-            box-sizing: border-box;
+        input { 
+            width: 100%; 
+            padding: 15px; 
+            border: 2px solid #edf2f7; 
+            border-radius: 12px; 
+            font-size: 16px; 
+            box-sizing: border-box; 
             outline: none;
         }
 
-        input:focus { border-color: var(--tigo-blue); }
-
-        /* LISTA DE SUGERENCIAS MEJORADA */
-        #coordinador {
-            width: 100%;
-            border: 1px solid #ddd;
-            border-radius: 0 0 10px 10px;
-            display: none; /* OCULTO POR DEFECTO */
+        /* ESTA ES LA MAGIA: Lista flotante que no empuja el contenido */
+        #lista-sugerencias {
             position: absolute;
-            z-index: 100;
+            top: 70px; /* Justo debajo del input de búsqueda */
+            left: 0;
+            right: 0;
             background: white;
-            max-height: 150px;
-            overflow-y: auto;
-        }
-
-        option { padding: 12px; border-bottom: 1px solid #f0f0f0; }
-
-        button {
-            width: 100%;
-            background-color: var(--tigo-blue);
-            color: white;
-            padding: 15px;
-            border: none;
+            border: 1px solid #ddd;
             border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 999; /* Por encima de todo */
+            display: none;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
 
-        .footer-text { margin-top: 20px; font-size: 10px; color: #999; }
+        .sugerencia-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #f7fafc;
+            font-size: 14px;
+        }
+
+        .sugerencia-item:hover { background: #f0f4ff; color: var(--tigo-blue); }
+
+        button { 
+            width: 100%; 
+            background: var(--tigo-blue); 
+            color: white; 
+            padding: 16px; 
+            border: none; 
+            border-radius: 12px; 
+            font-size: 16px; 
+            font-weight: bold; 
+            margin-top: 10px;
+        }
+
+        .footer-tag { text-align: center; margin-top: 20px; font-size: 10px; color: #a0aec0; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
-<div class="login-container">
+<div class="login-card">
     <div class="logo">Tigo Business</div>
-    <div class="subtitle">Portal de Reportes</div>
 
     <div class="form-group">
         <label>BUSCAR COORDINADOR</label>
-        <input type="text" id="buscador" placeholder="Escriba su nombre..." oninput="filtrar()" autocomplete="off">
-        <select id="coordinador" size="5" onclick="seleccionar()"></select>
+        <input type="text" id="buscador" placeholder="Escriba su nombre..." autocomplete="off" oninput="filtrar()">
+        <div id="lista-sugerencias"></div>
+        <input type="hidden" id="slug-seleccionado">
     </div>
 
     <div class="form-group">
@@ -105,7 +92,7 @@
     </div>
 
     <button onclick="acceder()">ENTRAR AL REPORTE</button>
-    <div class="footer-text">© 2026 Tigo Paraguay</div>
+    <div class="footer-tag">© 2026 Tigo Paraguay</div>
 </div>
 
 <script>
@@ -175,53 +162,43 @@
 
     function filtrar() {
         const input = document.getElementById('buscador');
-        const select = document.getElementById('coordinador');
+        const lista = document.getElementById('lista-sugerencias');
         const filtro = input.value.toLowerCase();
         
-        select.innerHTML = "";
-        
-        if (filtro.length < 2) {
-            select.style.display = "none";
-            return;
-        }
+        lista.innerHTML = "";
+        if (filtro.length < 2) { lista.style.display = "none"; return; }
 
         let encontrados = 0;
         for (const [slug, nombre] of Object.entries(coordinadores)) {
             if (nombre.toLowerCase().includes(filtro)) {
-                const opt = document.createElement('option');
-                opt.value = slug;
-                opt.innerHTML = nombre;
-                select.appendChild(opt);
+                const item = document.createElement('div');
+                item.className = 'sugerencia-item';
+                item.textContent = nombre;
+                item.onclick = function() {
+                    input.value = nombre;
+                    document.getElementById('slug-seleccionado').value = slug;
+                    lista.style.display = "none";
+                };
+                lista.appendChild(item);
                 encontrados++;
             }
         }
-        select.style.display = encontrados > 0 ? "block" : "none";
-    }
-
-    function seleccionar() {
-        const select = document.getElementById('coordinador');
-        const input = document.getElementById('buscador');
-        input.value = select.options[select.selectedIndex].text;
-        input.dataset.slug = select.value;
-        select.style.display = "none";
+        lista.style.display = encontrados > 0 ? "block" : "none";
     }
 
     function acceder() {
-        const slug = document.getElementById('buscador').dataset.slug;
+        const slug = document.getElementById('slug-seleccionado').value;
         const pass = document.getElementById('pass').value;
+        if (!slug || !pass) { alert("Seleccione nombre e ingrese PIN"); return; }
         
-        if (!slug || !pass) {
-            alert("Por favor, seleccione su nombre de la lista e ingrese su PIN.");
-            return;
-        }
-
-        // SOLUCIÓN AL ERROR 404:
-        // Si el index.html está en la raíz y los reportes en /docs:
+        // Redirigir a la carpeta docs que está en el mismo nivel
         window.location.href = "./docs/" + slug + "-" + pass + ".html";
-        
-        // Si el index.html ya está DENTRO de la carpeta /docs, usa esta:
-        // window.location.href = "./" + slug + "-" + pass + ".html";
     }
+
+    // Cerrar lista si se toca fuera
+    document.addEventListener('click', (e) => {
+        if (e.target.id !== 'buscador') document.getElementById('lista-sugerencias').style.display = "none";
+    });
 </script>
 </body>
 </html>
