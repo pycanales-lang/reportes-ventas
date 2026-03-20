@@ -108,305 +108,87 @@ button:hover {
 </div>
 
 <script>
+    // 1. El diccionario de coordinadores (Asegúrate de que los nombres coincidan con tus archivos .html)
+    const coordinadores = {
+        "alvarez-caballero-fernando-rafael": "ALVAREZ CABALLERO, FERNANDO RAFAEL",
+        "martinez-cardozo-miguel-fernando": "MARTINEZ CARDOZO, MIGUEL ÁNGEL FERNANDO",
+        "monti-caceres-rolando-matias": "MONTI CACERES, ROLANDO MATIAS",
+        "leon-riquelme-aldo-javier": "LEÓN RIQUELME, ALDO JAVIER",
+        "olmedo-cuevas-adolfo-gabriel": "OLMEDO CUEVAS, ADOLFO GABRIEL",
+        "franco-orue-jorge-antonio": "FRANCO ORUE, JORGE ANTONIO",
+        "arguello-maria-romina": "ARGUELLO, MARIA ROMINA",
+        "llanes-villagra-laura-esmilce": "LLANES VILLAGRA, LAURA ESMILCE",
+        "barreto-mora-luis-matias": "BARRETO MORA, LUIS MATIAS",
+        "alcaraz-rolon-maira-luz": "ALCARAZ ROLON, MAIRA LUZ",
+        "noguera-garcia-laura-melissa": "NOGUERA GARCIA, LAURA MELISSA",
+        "mauro-mogetta-saidy-gabriela": "MAURO MOGETTA, SAIDY GABRIELA",
+        "arce-duarte-gaspar": "ARCE DUARTE, GASPAR",
+        "rodriguez-cabrera-fredy-anibal": "RODRIGUEZ CABRERA, FREDY ANIBAL",
+        "fleitas-lopez-isidro-andres": "FLEITAS LOPEZ, ISIDRO ANDRES",
+        "portillo-rios-elena-rosana": "PORTILLO RIOS, ELENA ROSANA",
+        "benitez-garcia-ever": "BENITEZ GARCIA, EVER",
+        "britez-fernandez-renato-luis": "BRITEZ FERNANDEZ, RENATO LUIS",
+        "lomaquis-martinez-ana-maria": "LOMAQUIS MARTINEZ, ANA MARIA",
+        "benitez-octavio-herimarc": "BENITEZ, OCTAVIO HERIMARC",
+        "vargas-portillo-rocio-elizabeth": "VARGAS PORTILLO, ROCIO ELIZABETH",
+        "torales-pairet-araceli-vanessa": "TORALES PAIRET, ARACELI VANESSA",
+        "pereira-zarate-gustavo-ramon": "PEREIRA ZARATE, GUSTAVO RAMON",
+        "gonzalez-quintana-hector-david": "GONZALEZ QUINTANA, HECTOR DAVID",
+        "acosta-rivaldi-milagro-estefania": "ACOSTA RIVALDI, MILAGRO ESTEFANIA",
+        "jimenez-aguero-liliana": "JIMENEZ AGÜERO, LILIANA",
+        "vento-cardenas-carlos-daniel": "VENTO CARDENAS, CARLOS DANIEL",
+        "espinoza-lopez-luis-rodrigo": "ESPINOZA LOPEZ, LUIS RODRIGO",
+        "grossling-aquino-yanio-mathias": "GROSSLING AQUINO, YANIO MATHIAS",
+        "villalba-vester-leonardo": "VILLALBA VESTER, LEONARDO",
+        "vera-portillo-angel-javier": "VERA PORTILLO, ANGEL JAVIER",
+        "gimenez-coronel-yohana-elizabeth": "GIMENEZ CORONEL, YOHANA ELIZABETH",
+        "romero-duarte-melissa-aylen": "ROMERO DUARTE, MELISSA AYLEN",
+        "ferreira-acosta-arnaldo-alberto": "FERREIRA ACOSTA, ARNALDO ALBERTO",
+        "godoy-fleitas-guadalupe-ramona": "GODOY FLEITAS, GUADALUPE RAMONA",
+        "lopez-pacua-nelson-raul": "LOPEZ PACUA, NELSON RAUL",
+        "da-silva-cristian-alejandro": "DA SILVA, CRISTIAN ALEJANDRO",
+        "noelia-gonzalez-maria-noelia": "NOELIA GONZALEZ, MARÍA NOELIA",
+        "acosta-cabrera-guzman": "ACOSTA CABRERA, GUZMAN",
+        "franco-ortiz-milciades": "FRANCO ORTIZ, MILCIADES",
+        "alderete-espinola-francisco-isaias": "ALDERETE ESPINOLA, FRANCISCO ISAIAS",
+        "espinola-rojajs-rebeca-maricel": "ESPINOLA ROJAS, REBECA MARICEL"
+    };
 
-// 🔹 JSON REAL (ejemplo reducido, vos pegás el completo)
-const coordinadores = {
-    "vera-portillo-angel-javier": {
-        nombre: "VERA PORTILLO, ANGEL JAVIER",
-        pass: "790062026"
-    },
-    "arguello-maria-romina": {
-        nombre: "ARGUELLO, MARIA ROMINA",
-        pass: "427062026"
-    },
-    "romero-duarte-melissa-aylen": {
-        nombre: "ROMERO DUARTE, MELISSA AYLEN",
-        pass: "826152026"
-    },
-    "benitez-insfran-shirley-jisselle": {
-        nombre: "BENITEZ INSFRAN, SHIRLEY JISSELLE",
-        pass: "889922026"
-    },
-    "jimenez-aguero-liliana": {
-        nombre: "JIMENEZ AGUERO, Liliana",
-        pass: "703652026"
-    },
-    "benitez-franco-rosana": {
-        nombre: "BENITEZ FRANCO, ROSANA",
-        pass: "895202026"
-    },
-    "villalba-vester-leonardo": {
-        nombre: "VILLALBA VESTER, LEONARDO",
-        pass: "79522026"
-    },
-    "noguera-garcia-laura-melissa": {
-        nombre: "NOGUERA GARCIA, Laura Melissa",
-        pass: "274612026"
-    },
-    "franco-ortiz-milciades": {
-        nombre: "FRANCO ORTIZ, MILCIADES",
-        pass: "660142026"
-    },
-    "arce-duarte-gaspar": {
-        nombre: "ARCE DUARTE, Gaspar",
-        pass: "801892026"
-    },
-    "fleitas-lopez-isidro-andres": {
-        nombre: "FLEITAS LOPEZ, Isidro Andres",
-        pass: "466452026"
-    },
-    "insauralde-florentin-lourdes-mariana": {
-        nombre: "INSAURRALDE FLORENTIN, LOURDES MARIANA",
-        pass: "517222026"
-    },
-    "alderete-espinola-francisco-isaias": {
-        nombre: "ALDERETE ESPINOLA, Francisco Isaias",
-        pass: "464782026"
-    },
-    "martinez-areco-oscar-mauricio": {
-        nombre: "MARTINEZ ARECO, Oscar Mauricio",
-        pass: "417132026"
-    },
-    "godoy-fleitas-guadalupe-ramona": {
-        nombre: "GODOY FLEITAS, GUADALUPE RAMONA",
-        pass: "712572026"
-    },
-    "acosta-cabrera-guzman": {
-        nombre: "ACOSTA CABRERA, GUZMAN",
-        pass: "683972026"
-    },
-    "lujan-ramirez-christian": {
-        nombre: "LUJAN RAMIREZ, Christian",
-        pass: "713892026"
-    },
-    "lopez-pacua-nelson-raul": {
-        nombre: "LOPEZ PACUA, NELSON RAUL",
-        pass: "1009772026"
-    },
-    "acosta-rivaldi-milagro-estefania": {
-        nombre: "ACOSTA RIVALDI, MILAGRO ESTEFANIA",
-        pass: "549912026"
-    },
-    "gimenez-coronel-yohana-elizabeth": {
-        nombre: "GIMENEZ CORONEL, YOHANA ELIZABETH",
-        pass: "565222026"
-    },
-    "ferreira-acosta-arnaldo-alberto": {
-        nombre: "FERREIRA ACOSTA, ARNALDO ALBERTO",
-        pass: "365982026"
-    },
-    "benitez-octavio-herimarc": {
-        nombre: "BENITEZ, OCTAVIO HERIMARC",
-        pass: "686082026"
-    },
-    "leon-riquelme-aldo-javier": {
-        nombre: "LEÓN RIQUELME, ALDO JAVIER",
-        pass: "826182026"
-    },
-    "portillo-silvero-jessica-noemi": {
-        nombre: "PORTILLO SILVERO, JESSICA NOEMI",
-        pass: "663902026"
-    },
-    "grossling-aquino-yanio-mathias": {
-        nombre: "GROSSLING AQUINO, YANIO MATHIAS",
-        pass: "835612026"
-    },
-    "benitez-garcia-ever": {
-        nombre: "BENITEZ GARCIA, EVER",
-        pass: "603422026"
-    },
-    "espinoza-lopez-luis-rodrigo": {
-        nombre: "ESPINOZA LOPEZ, LUIS RODRIGO",
-        pass: "706252026"
-    },
-    "portillo-rios-elena-rosana": {
-        nombre: "PORTILLO RIOS, ELENA ROSANA",
-        pass: "353272026"
-    },
-    "da-silva-cristian-alejandro": {
-        nombre: "DA SILVA, CRISTIAN ALEJANDRO",
-        pass: "732752026"
-    },
-    "llanes-villagra-laura-esmilce": {
-        nombre: "LLANES VILLAGRA, Laura Esmilce",
-        pass: "563772026"
-    },
-    "pereira-zarate-gustavo-ramon": {
-        nombre: "PEREIRA ZARATE, Gustavo Ramon",
-        pass: "770122026"
-    },
-    "frazqueri-samaniego-gustavo-ramon": {
-        nombre: "FRAZQUERI SAMANIEGO, Gustavo Ramon",
-        pass: "572202026"
-    },
-    "torales-pairet-araceli-vanessa": {
-        nombre: "TORALES PAIRET, ARACELI VANESSA",
-        pass: "712302026"
-    },
-    "martinez-cardozo-miguelangel-fernando": {
-        nombre: "MARTINEZ CARDOZO, MIGUELÁNGEL FERNANDO",
-        pass: "618082026"
-    },
-    "davalos-espinoza-luz-joana": {
-        nombre: "DAVALOS ESPINOZA, LUZ JOANA",
-        pass: "761682026"
-    },
-    "monti-caceres-rolando-matias": {
-        nombre: "MONTI CACERES, ROLANDO MATIAS",
-        pass: "728432026"
-    },
-    "gonzalez-quintana-hector-david": {
-        nombre: "GONZALEZ QUINTANA, HECTOR DAVID",
-        pass: "559002026"
-    },
-    "alcaraz-rolon-maira-luz": {
-        nombre: "ALCARAZ ROLON, MAIRA LUZ",
-        pass: "783762026"
-    },
-    "rodriguez-cabrera-fredy-anibal": {
-        nombre: "RODRIGUEZ CABRERA, FREDY ANIBAL",
-        pass: "994882026"
-    },
-    "mauro-mogetta-saidy-gabriela": {
-        nombre: "MAURO MOGETTA, SAIDY GABRIELA",
-        pass: "728412026"
-    },
-    "fernandez-rodriguez-samuel-elias": {
-        nombre: "FERNANDEZ RODRIGUEZ, Samuel Elias",
-        pass: "568542026"
-    },
-    "barreto-mora-luis-matias": {
-        nombre: "BARRETO MORA, LUIS MATIAS",
-        pass: "748902026"
-    },
-    "alonso-casartelli-franco-rafael": {
-        nombre: "ALONSO CASARTELLI, FRANCO RAFAEL",
-        pass: "619832026"
-    },
-    "lomaquis-martinez-ana-maria": {
-        nombre: "LOMAQUIS MARTINEZ, ANA MARIA",
-        pass: "866922026"
-    },
-    "vargas-portillo-rocio-elizabeth": {
-        nombre: "VARGAS PORTILLO, ROCIO ELIZABETH",
-        pass: "753202026"
-    },
-    "gimenez-lopez-leila-larissa": {
-        nombre: "GIMENEZ LOPEZ, LEILA LARISSA",
-        pass: "652712026"
-    },
-    "espinola-rojas-rebeca-maricel": {
-        nombre: "ESPINOLA ROJAS, REBECA MARICEL",
-        pass: "734732026"
-    },
-    "olmedo-cuevas-adolfo-gabriel": {
-        nombre: "OLMEDO CUEVAS, Adolfo Gabriel",
-        pass: "193802026"
-    },
-    "vento-cardenas-carlos-daniel": {
-        nombre: "VENTO CARDENAS, Carlos Daniel",
-        pass: "254432026"
-    },
-    "noelia-gonzalez-maria-noelia": {
-        nombre: "NOELIA GONZALEZ, MARÍA NOELIA",
-        pass: "443172026"
-    },
-    "brietez-fernandez-renato-luis": {
-        nombre: "Britez Fernandez, Renato Luis",
-        pass: "1008242026"
-    },
-    "franco-orue-jorge-antonio": {
-        nombre: "FRANCO ORUE, Jorge Antonio",
-        pass: "126632026"
-    },
-    "aguilera-villasanti-minerva-elizabeth": {
-        nombre: "AGUILERA VILLASANTI, MINERVA ELIZABETH",
-        pass: "575342026"
-    },
-    "cabrera-lezcano-ismael-nebaiot": {
-        nombre: "CABRERA LEZCANO, Ismael Nebaiot",
-        pass: "712832026"
-    },
-    "gaona-bataglia-nicolas-ulises": {
-        nombre: "GAONA BATAGLIA, NICOLAS ULISES",
-        pass: "451422026"
-    },
-    "silvera-minella-maria-fernanda": {
-        nombre: "SILVERA MINELLA, Maria Fernanda",
-        pass: "612172026"
-    },
-    "ruiz-cuellar-carolina": {
-        nombre: "RUIZ CUELLAR, Carolina",
-        pass: "603382026"
-    },
-    "lopez-frutos-jose-maria": {
-        nombre: "LOPEZ FRUTOS, Jose Maria",
-        pass: "713122026"
-    },
-    "alvarez-caballero-fernando-rafael": {
-        nombre: "ALVAREZ CABALLERO, FERNANDO RAFAEL",
-        pass: "729962026"
-    },
-    "leguizamon-cuevas-diego-jose": {
-        nombre: "LEGUIZAMON CUEVAS, DIEGO JOSE",
-        pass: "577092026"
+    // 2. Función para cargar y filtrar la lista
+    function filtrar() {
+        const busqueda = document.getElementById('buscador').value.toLowerCase();
+        const select = document.getElementById('coordinador');
+        
+        // Limpiamos el select
+        select.innerHTML = "";
+
+        // Filtramos y añadimos opciones
+        Object.entries(coordinadores).forEach(([slug, nombre]) => {
+            if (nombre.toLowerCase().includes(busqueda)) {
+                const opt = document.createElement('option');
+                opt.value = slug;
+                opt.textContent = nombre;
+                select.appendChild(opt);
+            }
+        });
     }
-};
 
-// 🔹 Cargar lista
-function cargarLista(filtro="") {
-    const select = document.getElementById("coordinador");
-    select.innerHTML = "";
-
-    Object.entries(coordinadores).forEach(([key, user]) => {
-        //if(key === "admin") return;
-
-        if(user.nombre.toLowerCase().includes(filtro.toLowerCase())){
-            const opt = document.createElement("option");
-            opt.value = key;
-            opt.textContent = user.nombre;
-            select.appendChild(opt);
+    // 3. Función para entrar al reporte
+    function acceder() {
+        const user = document.getElementById('coordinador').value;
+        const pass = document.getElementById('pass').value;
+        
+        if (!user || !pass) {
+            alert("Por favor, seleccione su nombre e ingrese su PIN");
+            return;
         }
-    });
-}
 
-// 🔹 Buscar
-function filtrar(){
-    cargarLista(document.getElementById("buscador").value);
-}
-
-// 🔐 LOGIN PRO
-function login(){
-    const userKey = document.getElementById("coordinador").value;
-    const pass = document.getElementById("pass").value;
-    const error = document.getElementById("error");
-
-    error.textContent = "";
-
-    // 👑 ADMIN ACCESS
-    iif(pass === "Admin2026*"){
-        window.location.href = "./admin.html";
-        return;
+        // Redirigir a la carpeta docs donde están los reportes
+        window.location.href = "./docs/" + user + "-" + pass + ".html";
     }
 
-    // Validación normal
-    if(!userKey || !pass){
-        error.textContent = "Complete todos los campos";
-        return;
-    }
-
-    const user = coordinadores[userKey];
-
-    if(user && user.pass === pass){
-        // acceso correcto
-        window.location.href = `./docs/${userKey}.html`;
-    } else {
-        error.textContent = "Clave incorrecta";
-    }
-}
-
-cargarLista();
-
+    // 4. EJECUTAR AL CARGAR: Esto hace que la lista aparezca apenas abre la página
+    window.onload = filtrar;
 </script>
 </body>
 </html>
