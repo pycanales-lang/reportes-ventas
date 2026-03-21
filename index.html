@@ -1,131 +1,133 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Portal de Ventas | Tigo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Portal de Ventas | Tigo</title>
 
-<style>
-:root {
-    --tigo-blue: #0033a0;
-    --tigo-light-blue: #0050ef;
-}
+    <style>
+        :root {
+            --tigo-blue: #0033a0;
+            --tigo-light-blue: #0050ef;
+        }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0033a0, #0050ef);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0033a0, #0050ef);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-.login-container {
-    background: white;
-    padding: 25px;
-    border-radius: 16px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-    width: 95%;
-    max-width: 400px;
-    text-align: center;
-}
+        .login-container {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            width: 95%;
+            max-width: 400px;
+            text-align: center;
+        }
 
-.logo {
-    font-size: 26px;
-    font-weight: bold;
-    color: var(--tigo-blue);
-}
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: var(--tigo-blue);
+        }
 
-.subtitle {
-    color: #777;
-    font-size: 13px;
-    margin-bottom: 20px;
-}
+        .subtitle {
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
 
-.form-group {
-    text-align: left;
-    margin-bottom: 18px;
-}
+        .form-group {
+            text-align: left;
+            margin-bottom: 18px;
+            position: relative;
+        }
 
-label {
-    font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 6px;
-    display: block;
-}
+        label {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            display: block;
+        }
 
-input, select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    font-size: 14px;
-    box-sizing: border-box;
-}
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
 
-input:focus {
-    border-color: var(--tigo-light-blue);
-    outline: none;
-    box-shadow: 0 0 5px rgba(0,80,239,0.3);
-}
+        input:focus {
+            border-color: var(--tigo-light-blue);
+            outline: none;
+            box-shadow: 0 0 5px rgba(0,80,239,0.3);
+        }
 
-/* lista */
-select {
-    margin-top: 5px;
-    max-height: 120px;
-    overflow-y: auto;
-    display: none;
-}
+        select {
+            margin-top: 5px;
+            max-height: 150px;
+            overflow-y: auto;
+            display: none;
+            position: absolute;
+            z-index: 100;
+            background: white;
+        }
 
-select.show {
-    display: block;
-}
+        select.show {
+            display: block;
+        }
 
-button {
-    width: 100%;
-    background-color: var(--tigo-blue);
-    color: white;
-    padding: 14px;
-    border: none;
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
-}
+        button {
+            width: 100%;
+            background-color: var(--tigo-blue);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
 
-.btn-clear {
-    background: #ccc;
-    color: #333;
-}
-</style>
+        .btn-clear {
+            background: #ccc;
+            color: #333;
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="login-container">
     <div class="logo">Tigo Business</div>
-    <div class="subtitle">Dashboard de Gestión</div>
+    <div class="subtitle">Dashboard de Gestión Masterplan</div>
 
     <div class="form-group">
         <label>BUSCAR MI NOMBRE</label>
-        <input type="text" id="buscador" placeholder="Escriba aquí..." oninput="filtrar()" autocomplete="off">
+        <input type="text" id="buscador" placeholder="Escriba su nombre..." oninput="filtrar()" autocomplete="off">
         <select id="coordinador" size="5"></select>
     </div>
 
     <div class="form-group">
         <label>PIN DE ACCESO</label>
-        <input type="password" id="pass" placeholder="8 dígitos">
+        <input type="password" id="pass" placeholder="Ingrese su PIN">
     </div>
 
     <button onclick="acceder()">ENTRAR AL REPORTE</button>
     <button onclick="limpiar()" class="btn-clear">LIMPIAR</button>
-
 </div>
 
 <script>
-// Listado de coordinadores (Slug vs Nombre Real)
+    // El listado de coordinadores se mantiene igual
     const coordinadores = {
         "vera-portillo-angel-javier": "VERA PORTILLO, ANGEL JAVIER",
         "arguello-maria-romina": "ARGUELLO, MARIA ROMINA",
@@ -185,90 +187,64 @@ button {
         "silvera-minella-maria-fernanda": "SILVERA MINELLA, Maria Fernanda",
         "ruiz-cuellar-carolina": "RUIZ CUELLAR, Carolina",
         "lopez-frutos-jose-maria": "LOPEZ FRUTOS, Jose Maria",
-        "alvarez-caballero-fernando-rafael": "ALONSO CASARTELLI, FRANCO RAFAEL",
         "leguizamon-cuevas-diego-jose": "LEGUIZAMON CUEVAS, DIEGO JOSE"
     };
 
-const select = document.getElementById('coordinador');
-const buscador = document.getElementById('buscador');
+    const select = document.getElementById('coordinador');
+    const buscador = document.getElementById('buscador');
 
-
-// 🔥 ESTA FUNCIÓN FALTABA (CLAVE)
-function cargarLista(filtro = "") {
-    select.innerHTML = "";
-
-    for (const [slug, nombre] of Object.entries(coordinadores)) {
-        if (nombre.toLowerCase().includes(filtro.toLowerCase())) {
-            const option = document.createElement("option");
-            option.value = slug;
-            option.textContent = nombre;
-            select.appendChild(option);
+    function cargarLista(filtro = "") {
+        select.innerHTML = "";
+        for (const [slug, nombre] of Object.entries(coordinadores)) {
+            if (nombre.toLowerCase().includes(filtro.toLowerCase())) {
+                const option = document.createElement("option");
+                option.value = slug;
+                option.textContent = nombre;
+                select.appendChild(option);
+            }
         }
     }
-}
 
+    function filtrar() {
+        const texto = buscador.value;
+        cargarLista(texto);
+        if (texto.length > 0 && select.options.length > 0) {
+            select.classList.add("show");
+        } else {
+            select.classList.remove("show");
+        }
+    }
 
-// FILTRO
-function filtrar() {
-    const texto = buscador.value;
+    select.addEventListener("change", function () {
+        buscador.value = this.options[this.selectedIndex].text;
+        buscador.dataset.slug = this.value;
+        select.classList.remove("show");
+    });
 
-    cargarLista(texto);
-
-    if (texto.length > 0 && select.options.length > 0) {
-        select.classList.add("show");
-    } else {
+    function limpiar() {
+        buscador.value = "";
+        document.getElementById('pass').value = "";
+        select.innerHTML = "";
         select.classList.remove("show");
     }
-}
 
-
-// SELECCIÓN (FIX importante)
-select.addEventListener("change", function () {
-    buscador.value = this.options[this.selectedIndex].text;
-    buscador.dataset.slug = this.value;
-    select.classList.remove("show");
-});
-
-
-// LIMPIAR
-function limpiar() {
-    buscador.value = "";
-    document.getElementById('pass').value = "";
-    buscador.dataset.slug = "";
-    select.innerHTML = "";
-    select.classList.remove("show");
-}
-
-
-// ACCESO
     function acceder() {
         const user = select.value;
         const pass = document.getElementById('pass').value;
         
-        if (!user) {
-            alert("Por favor, seleccione su nombre de la lista.");
-            return;
-        }
-        if (!pass) {
-            alert("Por favor, ingrese su contraseña.");
-            return;
-        }
+        if (!user) { alert("Seleccione su nombre."); return; }
+        if (!pass) { alert("Ingrese su PIN."); return; }
 
-        // Construir URL: nombre-password.html
-        const destino = user + "-" + pass + ".html";
-        
-        // Redirigir
+        // CAMBIO CLAVE: Como index está en raíz, añadimos "docs/" a la ruta
+        const destino = "docs/" + user + "-" + pass + ".html";
         window.location.href = destino;
     }
 
-
-// cerrar lista clic afuera
-document.addEventListener('click', function(e) {
-    if (!e.target.closest('.form-group')) {
-        select.classList.remove("show");
-    }
-});
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.form-group')) {
+            select.classList.remove("show");
+        }
+    });
 </script>
-
 </body>
 </html>
