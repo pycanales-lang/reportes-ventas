@@ -261,6 +261,93 @@ function limpiar() {
         window.location.href = destino;
     }
 
+    # =========================================================
+    # GENERACIÓN DE REPORTES CON PODIO (MEJORA VISUAL)
+    # =========================================================
+    def generate_mobile_reports(df):
+        logging.info("🏆 Generando reportes con Podio de Vendedores...")
+        if not os.path.exists(OUTPUT_FOLDER):
+            os.makedirs(OUTPUT_FOLDER)
+    
+        coordinadores = df['COORDINADOR'].unique()
+        lock_data = get_passwords(coordinadores)
+    
+        for coord in coordinadores:
+            id_coord = slugify(coord)
+            password = lock_data[id_coord]["pass"]
+            df_c = df[df['COORDINADOR'] == coord].copy()
+            
+            # --- LÓGICA DEL PODIO ---
+            df_inst = df_c[df_c['ESTADO_OT'].str.contains('INSTALADA', na=False, case=False)]
+            ranking_full = df_inst.groupby('NOMBRE_VENDEDOR')['QTY'].sum().reset_index().sort_values('QTY', ascending=False)
+            
+            # Extraemos los 3 mejores (si existen)
+            top_3 = ranking_full.head(3).values.tolist()
+            
+            podio_html = ""
+            # Definimos los colores y medallas
+            medallas = [
+                {"color": "#FFD700", "label": "🥇 1er Puesto"}, # Oro
+                {"color": "#C0C0C0", "label": "🥈 2do Puesto"}, # Plata
+                {"color": "#CD7F32", "label": "🥉 3er Puesto"}  # Bronce
+            ]
+    
+            for i, vendedora in enumerate(top_3):
+                podio_html += f"""
+                <div style="display: flex; align-items: center; margin-bottom: 10px; padding: 10px; border-radius: 10px; background: {medallas[i]['color']}22; border-left: 5px solid {medallas[i]['color']};">
+                    <div style="font-size: 1.5rem; margin-right: 15px;">{medallas[i]['label'].split()[0]}</div>
+                    <div style="flex-grow: 1;">
+                        <div style="font-weight: bold; font-size: 0.9rem;">{vendedora[0]}</div>
+                        <div style="font-size: 0.8rem; color: #555;">{int(vendedora[1])} Instaladas</div>
+                    </div>
+                </div>
+                """
+    
+            # --- GRÁFICOS (Mantenemos la lógica base) ---
+            resumen_estado = df_c.groupby('ESTADO_OT')['QTY'].sum().reset_index().sort_values('QTY', ascending=False)
+            fig_funnel = px.funnel(resumen_estado, x='QTY', y='ESTADO_OT', title="Mi Gestión")
+            fig_funnel.update_layout(height=250, margin=dict(l=10, r=10, t=30, b=10))
+    
+            # HTML CON EL PODIO AL PRINCIPIO
+            html_content = f"""
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="utf-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+                <style>
+                    body {{ font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; margin: 0; padding: 10px; }}
+                    .card {{ background: white; border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }}
+                    .header {{ background: #0033a0; color: white; border-radius: 12px; padding: 15px; text-align: center; margin-bottom: 15px; }}
+                    h2 {{ font-size: 1rem; color: #0033a0; margin-top: 0; margin-bottom: 15px; text-transform: uppercase; }}
+                </style>
+            </head>
+            <body>
+                <div class="header">
+                    <h3>📈 Equipo: {coord}</h3>
+                    <small>Actualizado: {time.strftime('%H:%M %d/%m/%y')}</small>
+                </div>
+    
+                <div class="card">
+                    <h2>🏆 Podio de Estrellas</h2>
+                    {podio_html if podio_html else "<p>Sin ventas instaladas aún</p>"}
+                </div>
+                
+                <div class="card">
+                    <h2>Resumen de Embudo</h2>
+                    {fig_funnel.to_html(full_html=False, include_plotlyjs=False, config={'displayModeBar': False})}
+                </div>
+            </body>
+            </html>
+            """
+            
+            filename = f"{id_coord}-{password}.html"
+            with open(os.path.join(OUTPUT_FOLDER, filename), "w", encoding="utf-8") as f:
+                f.write(html_content)
+    
+        logging.info(f"✅ Podios generados para {len(coordinadores)} equipos.")
+    
 
 // cerrar lista clic afuera
 document.addEventListener('click', function(e) {
